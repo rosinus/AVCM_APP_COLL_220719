@@ -1,8 +1,13 @@
 package com.vigeo.avcm.data.model
 
 import com.google.gson.annotations.SerializedName
+import java.util.*
 
 data class User(
+
+    @SerializedName("list")
+    val list: Array<Object>,
+
     @SerializedName("userId")
     val userId: Int,
 
