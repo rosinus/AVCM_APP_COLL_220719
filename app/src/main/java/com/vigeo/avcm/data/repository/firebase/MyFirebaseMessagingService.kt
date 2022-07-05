@@ -1,4 +1,4 @@
-package com.vigeo.avcm
+package com.vigeo.avcm.data.repository.firebase
 
 
 import android.app.NotificationChannel
@@ -12,6 +12,8 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.vigeo.avcm.R
+import com.vigeo.avcm.view.MainActivity
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
 
@@ -33,7 +35,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     private fun sendNotification(title: String, messageBody: String) {
         val intent = Intent(this, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        val pendingIntent = PendingIntent.getActivity(this, 0, /* Request code */ intent, PendingIntent.FLAG_ONE_SHOT)
+        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+
         val channelId = "my_channel"
         val defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
         val notificationBuilder = NotificationCompat.Builder(this, channelId)
