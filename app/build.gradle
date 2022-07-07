@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services'
+    id 'androidx.navigation.safeargs.kotlin'
+    id 'kotlin-android-extensions'
 }
 
 android {
@@ -30,6 +32,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    viewBinding {
+        enabled = true
+    }
 }
 
 //retrofit2, gson, converter-gson : DB 연결을 위함
@@ -48,4 +54,8 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation("com.squareup.okhttp3:logging-interceptor:4.8.1")
+    //nav
+     def nav_version = "2.4.2"
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 }

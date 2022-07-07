@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/menu_home"
+        android:icon="@drawable/home"
+        android:title="@string/home" />
+
+    <item
+        android:id="@+id/menu_collect"
+        android:icon="@drawable/collect"
+        android:title="@string/pickup" />
+
+    <item
+        android:id="@+id/menu_purchase"
+        android:icon="@drawable/purchase"
+        android:title="구매신청"
+        />
+
+    <item
+        android:id="@+id/menu_page"
+        android:icon="@drawable/mypage"
+        android:title="내정보" />
+
+</menu>

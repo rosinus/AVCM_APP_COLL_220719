@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2D7E7B66">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="이용할 서비스를 선택해주세요."
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.167"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/but_collect"
+        android:layout_width="350dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="64dp"
+        android:background="@drawable/round_button"
+        android:bufferType="spannable"
+        android:gravity="left"
+        android:paddingTop="15dp"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <Button
+        android:id="@+id/but_collect2"
+        android:layout_width="350dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/round_button"
+        android:gravity="left"
+        android:paddingTop="15dp"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/but_collect"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <Button
+        android:id="@+id/but_collect3"
+        android:layout_width="350dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/round_button"
+        android:gravity="left"
+        android:paddingTop="15dp"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/but_collect2"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <Button
+        android:id="@+id/but_collect4"
+        android:layout_width="350dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/round_button"
+        android:gravity="left"
+        android:paddingTop="15dp"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/but_collect3"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:elevation="10dp"
+        android:text="수거신청"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/but_collect"
+        app:layout_constraintTop_toTopOf="@+id/but_collect" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:elevation="10dp"
+        android:text="농업용 폐비닐 수거 신청"
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="@+id/but_collect"
+        app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:elevation="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/but_collect"
+        app:layout_constraintEnd_toEndOf="@+id/but_collect"
+        app:layout_constraintTop_toTopOf="@+id/but_collect"
+        app:srcCompat="@drawable/plasticbag"
+        tools:ignore="ImageContrastCheck" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:elevation="10dp"
+        android:textColor="@color/black"
+        android:text="구매신청"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/but_collect2"
+        app:layout_constraintTop_toTopOf="@+id/but_collect2" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:elevation="10dp"
+        android:textSize="15dp"
+        android:text="마을 단위 비닐 구매 신청"
+        app:layout_constraintStart_toStartOf="@+id/but_collect2"
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:elevation="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/but_collect2"
+        app:layout_constraintEnd_toEndOf="@+id/but_collect2"
+        app:layout_constraintTop_toTopOf="@+id/but_collect2"
+        app:srcCompat="@drawable/shopping" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:elevation="10dp"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:text="자주 묻는 질문"
+        app:layout_constraintStart_toStartOf="@+id/but_collect3"
+        app:layout_constraintTop_toTopOf="@+id/but_collect3" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:elevation="10dp"
+        android:textColor="@color/black"
+        android:text="가이드 영상"
+        app:layout_constraintStart_toStartOf="@+id/but_collect4"
+        app:layout_constraintTop_toTopOf="@+id/but_collect4" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:elevation="10dp"
+        android:text="간편한 서비스 이용 위한\n빠른 질의문답"
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="@+id/but_collect3"
+        app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:elevation="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/but_collect3"
+        app:layout_constraintEnd_toEndOf="@+id/but_collect3"
+        app:layout_constraintTop_toTopOf="@+id/but_collect3"
+        app:srcCompat="@drawable/faq" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:elevation="10dp"
+        android:text="서비스 이용 방법을 제공하는\n영상"
+        android:textSize="15dp"
+        app:layout_constraintStart_toStartOf="@+id/but_collect4"
+        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:elevation="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/but_collect4"
+        app:layout_constraintEnd_toEndOf="@+id/but_collect4"
+        app:layout_constraintTop_toTopOf="@+id/but_collect4"
+        app:srcCompat="@drawable/video" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

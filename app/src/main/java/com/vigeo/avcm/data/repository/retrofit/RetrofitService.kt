@@ -1,16 +1,17 @@
 package com.vigeo.avcm.data.repository.retrofit
 
+import com.google.gson.JsonObject
 import com.vigeo.avcm.data.model.User
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Path
+import retrofit2.http.*
+import java.util.*
 
 interface RetrofitService {
     //GET 예제
-    @GET("posts/1")
+    @GET("jbcpvigeo/test.do")
     fun getUser(): Call<User>
 
-    @GET("posts/{page}")
+    @GET("jbcpvigeo/{page}")
     fun getUserPage(@Path("page") page: String): Call<User>
 
 
@@ -21,7 +22,7 @@ interface RetrofitService {
 //
 //
 //    //POST 예제
-//    @FormUrlEncoded
-//    @POST("posts")
-//    fun getContactsObject(@Field("idx") idx: String): Call<JsonObject>
+    @FormUrlEncoded
+    @POST("posts")
+    fun getContactsObject(@Field("idx") idx: String): Call<JsonObject>
 }

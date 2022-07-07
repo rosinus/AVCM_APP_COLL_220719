@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Avcm_APP_20220704</string>
+    <string name="pickup">수거신청</string>
+    <string name="home">홈</string>
+    <string name="myPage">내정보</string>
+    <string name="tnrj"><b>수거신청</b>\n농업용 폐비닐 수거 신청</string>
 </resources>

@@ -3,22 +3,46 @@ package com.vigeo.avcm.view
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.widget.Toast
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.messaging.FirebaseMessaging
 import com.vigeo.avcm.R
 import com.vigeo.avcm.data.model.User
-import com.vigeo.avcm.data.repository.retrofit.RetrofitService
+import com.vigeo.avcm.data.repository.retrofit.RetrofitBuilder
+import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(){
+
+    private lateinit var homeFragment: HomeFragment
+    private lateinit var collectFragment: CollectFragment
+    private lateinit var myPageFragment: MyPageFragment
+    private lateinit var purchaseFragment: PurchaseFragment
+
+    companion object{
+
+        const val TAG: String ="로그"
+    }
+
+    //메모리에 올라 갔을때
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // 레이아웃과 연결
         setContentView(R.layout.activity_main)
+
+        Log.d(TAG, "MainActivity - onCreate() called")
+        bottomNavi.setOnNavigationItemSelectedListener(onBottomNavItemListener)
+
+        homeFragment = HomeFragment.newInstance()
+        //add는 처음 프레그먼트 생성 replace는 현재 프레그먼트를 지우고 택한걸로 교체.
+        supportFragmentManager.beginTransaction().add(R.id.fragment_frame, homeFragment).commit()
+
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
             if (!task.isSuccessful) {
                 Log.w("FCM", "Fetching FCM registration token failed", task.exception)
@@ -34,14 +58,12 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(baseContext, msg, Toast.LENGTH_SHORT).show()
         })
 
-        val retrofit = Retrofit.Builder().baseUrl("https://jsonplaceholder.typicode.com/")
-            .addConverterFactory(GsonConverterFactory.create()).build();
-        val service = retrofit.create(RetrofitService::class.java);
+        var service = RetrofitBuilder().service
 
         service.getUserPage("1")?.enqueue(object : Callback<User> {
             override fun onResponse(call: Call<User>, response: Response<User>) {
                 if(response.isSuccessful){
-                    // 정상적으로 통신이 성고된 경우
+                    // 정상적으로 통신이 성공된 경우
                     var result: User? = response.body()
                     Log.d("YMC", "onResponse 성공: " + result?.toString());
                 }else{
@@ -56,4 +78,31 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
-}
+
+   private val onBottomNavItemListener = BottomNavigationView.OnNavigationItemSelectedListener {
+       when(it.itemId) {
+           R.id.menu_home -> {
+               Log.d(TAG, "MainActivity - 홈버튼 클릭")
+               homeFragment = HomeFragment.newInstance()
+               //현재 프래그먼트를 지우고 다음 내가 클릭한 프래그먼트를 가져오기.
+               supportFragmentManager.beginTransaction().replace(R.id.fragment_frame, homeFragment).commit()
+           }
+           R.id.menu_collect -> {
+               Log.d(TAG, "MainActivity - 수거신청 클릭")
+               collectFragment = CollectFragment.newInstance()
+               supportFragmentManager.beginTransaction().replace(R.id.fragment_frame, collectFragment).commit()
+           }
+           R.id.menu_purchase -> {
+               Log.d(TAG, "MainActivity - 구매신청 클릭")
+               purchaseFragment = PurchaseFragment.newInstance()
+               supportFragmentManager.beginTransaction().replace(R.id.fragment_frame, purchaseFragment).commit()
+           }
+           R.id.menu_page -> {
+               Log.d(TAG, "MainActivity - 내정보 클릭")
+               myPageFragment = MyPageFragment.newInstance()
+               supportFragmentManager.beginTransaction().replace(R.id.fragment_frame, myPageFragment).commit()
+           }
+       }
+           true
+       }
+   }
