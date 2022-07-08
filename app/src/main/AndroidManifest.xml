@@ -5,6 +5,7 @@
 
     <!-- INTERNET 인터넷 연결 -->
     <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- 네트웍이 연결된것을 확인할수 있게함 -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <!-- 카카오 네비 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -15,7 +16,6 @@
     <!-- label : 기본 라벨 설정 -->
     <!-- theme : 기본 테마 설정 -->
     <!-- usesCleartextTraffic : Http 연결 설정 / 미설정시 Https 만 가능 -->
-
     <application
         android:usesCleartextTraffic="true"
         android:networkSecurityConfig="@xml/network_security_config"
