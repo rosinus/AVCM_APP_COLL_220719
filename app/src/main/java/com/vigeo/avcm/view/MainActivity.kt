@@ -1,9 +1,14 @@
 package com.vigeo.avcm.view
 
+import android.content.pm.ActivityInfo
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.system.Os.remove
+import android.util.Base64
 import android.util.Log
 import android.view.MenuItem
+import android.widget.Button
 import android.widget.Toast
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -11,11 +16,15 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.vigeo.avcm.R
 import com.vigeo.avcm.data.model.User
 import com.vigeo.avcm.data.repository.retrofit.RetrofitBuilder
+import com.vigeo.avcm.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_collect.*
+import net.daum.mf.map.api.MapView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.converter.gson.GsonConverterFactory
+import java.security.MessageDigest
 
 class MainActivity : AppCompatActivity(){
 
@@ -23,6 +32,10 @@ class MainActivity : AppCompatActivity(){
     private lateinit var collectFragment: CollectFragment
     private lateinit var myPageFragment: MyPageFragment
     private lateinit var purchaseFragment: PurchaseFragment
+    // 전역 변수로 바인딩 객체 선언
+    private var mBinding: ActivityMainBinding? = null
+    // 매번 null 체크를 할 필요 없이 편의성을 위해 바인딩 변수 재 선언
+    private val binding get() = mBinding!!
 
     companion object{
 
@@ -33,14 +46,33 @@ class MainActivity : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
         // 레이아웃과 연결
         setContentView(R.layout.activity_main)
 
+
+        try {
+            val information =
+                packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNING_CERTIFICATES)
+            val signatures = information.signingInfo.apkContentsSigners
+            val md = MessageDigest.getInstance("SHA")
+            for (signature in signatures) {
+                val md: MessageDigest
+                md = MessageDigest.getInstance("SHA")
+                md.update(signature.toByteArray())
+                var hashcode = String(Base64.encode(md.digest(), 0))
+                Log.d("hashcode", "" + hashcode)
+            }
+        } catch (e: Exception) {
+            Log.d("hashcode", "에러::" + e.toString())
+
+        }
         Log.d(TAG, "MainActivity - onCreate() called")
         bottomNavi.setOnNavigationItemSelectedListener(onBottomNavItemListener)
 
         homeFragment = HomeFragment.newInstance()
         //add는 처음 프레그먼트 생성 replace는 현재 프레그먼트를 지우고 택한걸로 교체.
+
         supportFragmentManager.beginTransaction().add(R.id.fragment_frame, homeFragment).commit()
 
         FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
@@ -79,12 +111,14 @@ class MainActivity : AppCompatActivity(){
         })
     }
 
+
    private val onBottomNavItemListener = BottomNavigationView.OnNavigationItemSelectedListener {
        when(it.itemId) {
            R.id.menu_home -> {
                Log.d(TAG, "MainActivity - 홈버튼 클릭")
                homeFragment = HomeFragment.newInstance()
                //현재 프래그먼트를 지우고 다음 내가 클릭한 프래그먼트를 가져오기.
+
                supportFragmentManager.beginTransaction().replace(R.id.fragment_frame, homeFragment).commit()
            }
            R.id.menu_collect -> {
