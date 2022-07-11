@@ -1,9 +1,13 @@
 <resources>
-    <string name="app_name">Avcm_APP_20220704</string>
+    <string name="app_name">AVCM</string>
     <string name="pickup">수거신청</string>
     <string name="home">홈</string>
     <string name="myPage">내정보</string>
     <string name="tnrj"><b>수거신청</b>\n농업용 폐비닐 수거 신청</string>
-<!-- TODO: Remove or change this placeholder text -->
+    <string name="app_title">폐비닐</string>
+    <string name="pw_format"><u>비밀번호 초기화</u></string>
+    <string name="pop_format_pw_content">비밀번호 초기화를 위해\n<b>성명, 연락처</b>를 입력해주세요.</string>
+    <string name="pop_format_pw_ok_content">비밀번호가 연락처로 초기화되었습니다.\n다시 로그인해주세요.</string>
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
