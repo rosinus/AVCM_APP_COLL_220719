@@ -62,6 +62,7 @@ class MainActivity : AppCompatActivity() {
         val factory = KakaoMapMarkerProviderFactory(mapView)
         kakaoMapMarker = ViewModelProvider(this, factory)[KakaoMapMarker::class.java]
 
+
         onBottomNavItemListener()
         if (savedInstanceState == null) {
             binding.bottomNavi.selectedItemId = R.id.menu_home
