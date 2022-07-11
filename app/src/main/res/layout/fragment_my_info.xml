@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EFEFEF"
+    tools:context=".myInfo.view.MyInfo"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/myInfoLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:background="#ffffff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="내정보"
+            android:textSize="30dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/MyNameLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:background="@drawable/myinfo_layout_bouder_up_down"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:padding="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3.5"
+            android:gravity="left|center"
+            android:text="userName"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="#ffffff"
+            android:textSize="17dp"
+            android:gravity="center"
+            android:background="@drawable/myinfo_round_button_565656"
+            android:text="계정정보"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/myInfo_waste_vinyl_record"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:background="@drawable/myinfo_layout_bouder_up"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:padding="10dp"
+            app:srcCompat="@drawable/edit" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="3.5"
+            android:paddingLeft="10dp"
+            android:layout_height="match_parent"
+            android:gravity="left|center"
+            android:text="폐비닐 수거기록"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center|right"
+            android:paddingRight="20dp"
+            android:background="#ffffff"
+            android:textSize="20dp"
+            android:textColor="#B6B6B6"
+            android:text=">"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/myInfo_purchase_records"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:background="@drawable/myinfo_layout_bouder_up"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:padding="10dp"
+            app:srcCompat="@drawable/shopping_cart" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3.5"
+            android:gravity="left|center"
+            android:paddingLeft="10dp"
+            android:text="구매 신청 기록"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center|right"
+            android:paddingRight="20dp"
+            android:background="#ffffff"
+            android:textSize="20dp"
+            android:textColor="#B6B6B6"
+            android:text=">"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/myInfo_frequently_asked_questions"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:background="@drawable/myinfo_layout_bouder_up"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:padding="10dp"
+            app:srcCompat="@drawable/conversation" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="3.5"
+            android:paddingLeft="10dp"
+            android:layout_height="match_parent"
+            android:gravity="left|center"
+            android:text="자주 묻는 질문"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center|right"
+            android:paddingRight="20dp"
+            android:background="#ffffff"
+            android:textSize="20dp"
+            android:textColor="#B6B6B6"
+            android:text=">"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/myInfo_guide_video"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:background="@drawable/myinfo_layout_bouder_up_down"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:padding="10dp"
+            app:srcCompat="@drawable/play_button" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="3.5"
+            android:paddingLeft="10dp"
+            android:layout_height="match_parent"
+            android:gravity="left|center"
+            android:text="가이드 영상 시청"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center|right"
+            android:paddingRight="20dp"
+            android:background="#ffffff"
+            android:textSize="20dp"
+            android:textColor="#B6B6B6"
+            android:text=">"
+            />
+    </LinearLayout>
+
+</LinearLayout>

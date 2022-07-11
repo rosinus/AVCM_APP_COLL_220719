@@ -6,15 +6,18 @@ import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.content.pm.Signature
 import android.location.LocationManager
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.vigeo.avcm.R
 import com.vigeo.avcm.databinding.ActivityMainBinding
+import com.vigeo.avcm.myInfo.view.MyInfo
 import com.vigeo.avcm.viewmodel.KakaoMapMarker
 import com.vigeo.avcm.viewmodel.KakaoMapMarkerProviderFactory
 import net.daum.mf.map.api.MapView
@@ -101,7 +104,7 @@ class MainActivity : AppCompatActivity() {
                     Log.d(TAG, "MainActivity - 내정보 클릭")
                     MyPageFragment.newInstance()
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_frame, MyPageFragment()).commit()
+                        .replace(R.id.fragment_frame, MyInfo()).commit()
                     true
                 }
                 else -> false
