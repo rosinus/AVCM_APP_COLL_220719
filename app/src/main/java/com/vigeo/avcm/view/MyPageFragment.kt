@@ -3,17 +3,19 @@ package com.vigeo.avcm.view
 import android.content.Context
 import android.os.Bundle
 import android.text.SpannableString
-import android.text.SpannableStringBuilder
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.vigeo.avcm.R
+import com.vigeo.avcm.databinding.FragmentMypageBinding
 
 class MyPageFragment : Fragment() {
     val spannable = SpannableString("Text is spantastic!")
 
+    private var mbinding : FragmentMypageBinding? = null
+    private val binding : FragmentMypageBinding get() = mbinding!!
 
     companion object{
         //log 출력을 편하게 하기 위해서
@@ -27,6 +29,7 @@ class MyPageFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "MyPageFragment - onCreate() called")
+
     }
     //Activity에 의존 프레그먼트를 안고 있는 액티비에 붙었을 때
     override fun onAttach(context: Context) {
@@ -46,5 +49,10 @@ class MyPageFragment : Fragment() {
         var view = inflater.inflate(R.layout.fragment_mypage, container, false)
 
         return view
+    }
+
+    override fun onDestroyView() {
+        mbinding = null
+        super.onDestroyView()
     }
 }
