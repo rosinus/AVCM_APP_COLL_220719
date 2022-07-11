@@ -7,4 +7,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <!-- 엄청 진하다 -->
+    <color name="btn">#555555</color>
+    <!-- 연하다 -->
+    <color name="main">#DDDDDD</color>
+    <!-- 더 연하다 -->
+    <color name="sub">#EFEFEF</color>
 </resources>
