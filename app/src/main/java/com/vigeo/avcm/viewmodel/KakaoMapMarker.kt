@@ -22,8 +22,7 @@ import net.daum.mf.map.api.MapView
 
 
 class KakaoMapMarker (
-    val mapView : MapView,
-    val lm: LocationManager
+    val mapView : MapView
 ) : ViewModel() {
 
     fun btn_marker(){

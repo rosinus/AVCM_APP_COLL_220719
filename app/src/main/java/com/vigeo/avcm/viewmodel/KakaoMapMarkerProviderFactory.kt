@@ -7,12 +7,11 @@ import net.daum.mf.map.api.MapView
 
 @Suppress("UNCHECKED_CAST")
 class KakaoMapMarkerProviderFactory(
-    val mapView : MapView,
-    val lm: LocationManager
+    val mapView : MapView
     ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if ( modelClass.isAssignableFrom(KakaoMapMarker::class.java)){
-            return KakaoMapMarker(mapView,lm) as T
+            return KakaoMapMarker(mapView) as T
         }
         throw IllegalArgumentException("ViewModel class not found")
     }

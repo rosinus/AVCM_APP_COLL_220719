@@ -57,10 +57,9 @@ class MainActivity : AppCompatActivity() {
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION))
 
-        val lm: LocationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         var mapView = MapView(this)
 
-        val factory = KakaoMapMarkerProviderFactory(mapView,lm)
+        val factory = KakaoMapMarkerProviderFactory(mapView)
         kakaoMapMarker = ViewModelProvider(this, factory)[KakaoMapMarker::class.java]
 
         onBottomNavItemListener()
