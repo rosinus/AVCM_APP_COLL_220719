@@ -52,7 +52,7 @@
 
 
         <EditText
-            android:id="@+id/et_login_phone_num"
+            android:id="@+id/et_login_post_num"
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:layout_marginStart="20dp"
@@ -74,7 +74,7 @@
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:gravity="center|right"
-            android:text="성명"
+            android:text="연락처"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -106,7 +106,7 @@
 
 
         <EditText
-            android:id="@+id/et_login_name"
+            android:id="@+id/et_login_addr"
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:layout_marginStart="20dp"
