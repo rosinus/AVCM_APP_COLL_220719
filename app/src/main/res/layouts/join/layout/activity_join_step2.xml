@@ -52,7 +52,7 @@
 
 
         <EditText
-            android:id="@+id/et_login_post_num"
+            android:id="@+id/et_login_pnum"
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:layout_marginStart="20dp"
