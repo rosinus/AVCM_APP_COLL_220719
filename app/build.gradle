@@ -36,6 +36,22 @@ android {
         // 뷰 바인딩 활성화
         viewBinding true
     }
+
+    sourceSets {
+        main {
+            res.srcDirs =
+                    [
+                            'src/main/res/layouts/collect',
+                            'src/main/res/layouts/join',
+                            'src/main/res/layouts/login',
+                            'src/main/res/layouts/main',
+                            'src/main/res/layouts/myinfo',
+                            'src/main/res/layouts/purchase',
+                            'src/main/res/layouts',
+                            'src/main/res'
+                    ]
+        }
+    }
 }
 
 //retrofit2, gson, converter-gson : DB 연결을 위함
@@ -66,5 +82,5 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     // LiveData
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
-    implementation "androidx.activity:activity-ktx:1.1.0"
+    implementation "androidx.activity:activity-ktx:1.5.0"
 }

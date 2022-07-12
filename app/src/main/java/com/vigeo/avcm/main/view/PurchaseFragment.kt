@@ -1,4 +1,4 @@
-package com.vigeo.avcm.view
+package com.vigeo.avcm.main.view
 
 import android.content.Context
 import android.os.Bundle
@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.vigeo.avcm.R
 import com.vigeo.avcm.databinding.FragmentPurchaseBinding
-import com.vigeo.avcm.myInfo.view.MyInfo
 
 class PurchaseFragment : Fragment() {
 

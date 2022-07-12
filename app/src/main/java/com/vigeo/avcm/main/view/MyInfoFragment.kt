@@ -1,18 +1,23 @@
-package com.vigeo.avcm.myInfo.view
+package com.vigeo.avcm.main.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.vigeo.avcm.R
+import com.vigeo.avcm.databinding.FragmentMyInfoBinding
+import com.vigeo.avcm.myInfo.view.FaqActivity
 
-class MyInfo : Fragment() {
+class MyInfoFragment : Fragment() {
+
+    private lateinit var myInfoBinding: FragmentMyInfoBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d("MyInfo : ", "MyInfo - onCreate() called")
+
     }
 
     // 뷰가 생성 되었을 때 (화면과 연결)
@@ -22,11 +27,17 @@ class MyInfo : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         Log.d("MyInfo : ", "MyInfo - onCreateView() called")
+        myInfoBinding = FragmentMyInfoBinding.inflate(inflater, container, false)
 
-        var view = inflater.inflate(R.layout.fragment_my_info, container, false)
+        myInfoBinding.myInfoWasteVinylRecord.setOnClickListener {
+            Log.d("Myinfo", "Faq로 이동")
+            val intent = Intent(activity, FaqActivity::class.java)
+            startActivity(intent)
+        }
 
-        return view
+        return myInfoBinding.root
     }
-
 }
+

@@ -1,6 +1,5 @@
-package com.vigeo.avcm.viewmodel
+package com.vigeo.avcm.main.viewmodel
 
-import android.location.LocationManager
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import net.daum.mf.map.api.MapView

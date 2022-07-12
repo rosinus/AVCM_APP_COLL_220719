@@ -1,4 +1,4 @@
-package com.vigeo.avcm.view
+package com.vigeo.avcm.main.view
 
 import android.content.Context
 import android.os.Bundle
@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.vigeo.avcm.databinding.FragmentCollectBinding
-import com.vigeo.avcm.viewmodel.KakaoMapMarker
+import com.vigeo.avcm.main.viewmodel.KakaoMapMarker
 import net.daum.mf.map.api.MapView
 
 class CollectFragment : Fragment() {

@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EFEFEF"
-    tools:context=".myInfo.view.MyInfo"
-    android:orientation="vertical">
+    android:background="@color/main"
+    android:orientation="vertical"
+    tools:context=".main.view.MyInfoFragment">
 
     <LinearLayout
         android:id="@+id/myInfoLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:orientation="horizontal"
         android:background="#ffffff"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -23,6 +23,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="내정보"
+            android:textColor="#000000"
             android:textSize="30dp"
             android:textStyle="bold" />
 
@@ -32,10 +33,10 @@
         android:id="@+id/MyNameLinearLayout"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:orientation="horizontal"
-        android:background="@drawable/myinfo_layout_bouder_up_down"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
+        android:background="@drawable/myinfo_layout_bouder_up_down"
+        android:orientation="horizontal"
         android:padding="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,6 +48,7 @@
             android:layout_weight="3.5"
             android:gravity="left|center"
             android:text="userName"
+            android:textColor="#000000"
             android:textSize="20dp"
             android:textStyle="bold" />
 
@@ -54,12 +56,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textColor="#ffffff"
-            android:textSize="17dp"
+            android:background="@drawable/myinfo_round_button"
             android:gravity="center"
-            android:background="@drawable/myinfo_round_button_565656"
             android:text="계정정보"
-            />
+            android:textColor="#ffffff"
+            android:textSize="17dp" />
 
     </LinearLayout>
 
@@ -67,8 +68,8 @@
         android:id="@+id/myInfo_waste_vinyl_record"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:orientation="horizontal"
         android:background="@drawable/myinfo_layout_bouder_up"
+        android:orientation="horizontal"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -85,33 +86,32 @@
 
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="3.5"
-            android:paddingLeft="10dp"
             android:layout_height="match_parent"
+            android:layout_weight="3.5"
             android:gravity="left|center"
+            android:paddingLeft="10dp"
             android:text="폐비닐 수거기록"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+            android:textColor="#000000"
+            android:textSize="20dp" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="#ffffff"
             android:gravity="center|right"
             android:paddingRight="20dp"
-            android:background="#ffffff"
-            android:textSize="20dp"
-            android:textColor="#B6B6B6"
             android:text=">"
-            />
+            android:textColor="#B6B6B6"
+            android:textSize="20dp" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/myInfo_purchase_records"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:orientation="horizontal"
         android:background="@drawable/myinfo_layout_bouder_up"
+        android:orientation="horizontal"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -133,27 +133,27 @@
             android:gravity="left|center"
             android:paddingLeft="10dp"
             android:text="구매 신청 기록"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+            android:textColor="#000000"
+            android:textSize="20dp" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="#ffffff"
             android:gravity="center|right"
             android:paddingRight="20dp"
-            android:background="#ffffff"
-            android:textSize="20dp"
-            android:textColor="#B6B6B6"
             android:text=">"
-            />
+            android:textColor="#B6B6B6"
+            android:textSize="20dp" />
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/myInfo_frequently_asked_questions"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:orientation="horizontal"
         android:background="@drawable/myinfo_layout_bouder_up"
+        android:orientation="horizontal"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -170,32 +170,32 @@
 
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="3.5"
-            android:paddingLeft="10dp"
             android:layout_height="match_parent"
+            android:layout_weight="3.5"
             android:gravity="left|center"
+            android:paddingLeft="10dp"
             android:text="자주 묻는 질문"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+            android:textColor="#000000"
+            android:textSize="20dp" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="#ffffff"
             android:gravity="center|right"
             android:paddingRight="20dp"
-            android:background="#ffffff"
-            android:textSize="20dp"
-            android:textColor="#B6B6B6"
             android:text=">"
-            />
+            android:textColor="#B6B6B6"
+            android:textSize="20dp" />
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/myInfo_guide_video"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:orientation="horizontal"
         android:background="@drawable/myinfo_layout_bouder_up_down"
+        android:orientation="horizontal"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -212,25 +212,24 @@
 
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="3.5"
-            android:paddingLeft="10dp"
             android:layout_height="match_parent"
+            android:layout_weight="3.5"
             android:gravity="left|center"
+            android:paddingLeft="10dp"
             android:text="가이드 영상 시청"
-            android:textSize="20dp"
-            android:textStyle="bold" />
+            android:textColor="#000000"
+            android:textSize="20dp" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:background="#ffffff"
             android:gravity="center|right"
             android:paddingRight="20dp"
-            android:background="#ffffff"
-            android:textSize="20dp"
-            android:textColor="#B6B6B6"
             android:text=">"
-            />
+            android:textColor="#B6B6B6"
+            android:textSize="20dp" />
     </LinearLayout>
 
 </LinearLayout>
