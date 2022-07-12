@@ -8,8 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.vigeo.avcm.R
+import com.vigeo.avcm.databinding.FragmentPurchaseBinding
+import com.vigeo.avcm.myInfo.view.MyInfo
 
 class PurchaseFragment : Fragment() {
+
+    private var _binding : FragmentPurchaseBinding? = null
+    private val binding : FragmentPurchaseBinding get() = _binding!!
 
     companion object{
         //log 출력을 편하게 하기 위해서
@@ -39,8 +44,43 @@ class PurchaseFragment : Fragment() {
     ): View? {
         Log.d(TAG, "PurchaseFragment - onCreate() called")
 
-        var view = inflater.inflate(R.layout.fragment_purchase, container, false)
+        _binding = FragmentPurchaseBinding.inflate(inflater, container, false)
 
-        return view
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        onPurchaseNavItemListener()
+        if (savedInstanceState == null) {
+            binding.purchaseNavi.selectedItemId = R.id.all
+        }
+    }
+
+    private fun onPurchaseNavItemListener() {
+        binding.purchaseNavi.setOnItemSelectedListener {
+            //Log.d("클릭")
+            when (it.itemId) {
+                R.id.all -> {
+                    Log.d(TAG, "all - 전체 버튼 클릭")
+                    true
+                }
+                R.id.outer -> {
+                    Log.d(TAG, "outer - 외피 필름 클릭")
+                    CollectFragment.newInstance()
+                    true
+                }
+                R.id.endothelial -> {
+                    Log.d(TAG, "endothelial - 내피 필름 클릭")
+                    true
+                }
+                R.id.mulching -> {
+                    Log.d(TAG, "mulching - 멀칭 필름 클릭")
+                    true
+                }
+                else -> false
+            }
+
+        }
     }
 }
