@@ -25,10 +25,22 @@
         android:theme="@style/Theme.Avcm_APP_20220704"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
+        <activity
+            android:name=".purchase.view.PurchaseActivity"
+            android:exported="false" />
+
         <activity android:name=".main.view.MainActivity" android:exported="true"></activity>
         <activity android:name=".login.view.LoginActivity" android:exported="true"></activity>
         <activity android:name=".join.view.JoinStep1Fragment" android:exported="true"></activity>
         <activity
+            android:name=".myInfo.view.FaqActivity"
+            android:exported="true" />
+
+        <activity
+
+            android:name="com.vigeo.avcm.main.view.MainActivity"
+            android:configChanges="screenSize|orientation"
             android:name=".login.view.IntroActivity"
             android:exported="true"
             android:screenOrientation="portrait"
@@ -38,6 +50,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <service android:name=".data.repository.firebase.MyFirebaseMessagingService"
             android:exported="true">

@@ -54,12 +54,6 @@ class MainActivity : AppCompatActivity() {
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION))
 
-        var mapView = MapView(this)
-
-        val factory = KakaoMapMarkerProviderFactory(mapView)
-        kakaoMapMarker = ViewModelProvider(this, factory)[KakaoMapMarker::class.java]
-
-
         onBottomNavItemListener()
         if (savedInstanceState == null) {
             binding.bottomNavi.selectedItemId = R.id.menu_home

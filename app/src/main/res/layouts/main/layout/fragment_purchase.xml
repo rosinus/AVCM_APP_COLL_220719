@@ -4,11 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.PurchaseFragment">
+    tools:context=".main.view.PurchaseFragment">
+
+    <Button
+        android:id="@+id/testBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="@+id/frameLayout3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <FrameLayout
+        android:id="@+id/frameLayout3"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -17,7 +28,6 @@
             android:layout_width="match_parent"
             android:layout_height="160dp"
             android:padding="4dp"
-            app:endIconMode="clear_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -48,17 +58,35 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!--<androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_search_result"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="140dp"
-            android:scrollbars="vertical"
+        <!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--            android:id="@+id/rv_search_result"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_marginTop="160dp"-->
+<!--            android:scrollbars="vertical"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/tl_search" />-->
+
+    </FrameLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="95dp"
+        android:layout_height="88dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/frameLayout3">
+
+        <ImageView
+            android:id="@+id/imageView7"
+            android:layout_width="37dp"
+            android:layout_height="47dp"
+            android:src="@drawable/ic_search_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tl_search" />-->
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

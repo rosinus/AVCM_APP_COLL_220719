@@ -1,6 +1,7 @@
 package com.vigeo.avcm.main.view
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.vigeo.avcm.R
 import com.vigeo.avcm.databinding.FragmentPurchaseBinding
+import com.vigeo.avcm.purchase.view.PurchaseActivity
 
 class PurchaseFragment : Fragment() {
 
@@ -27,6 +29,7 @@ class PurchaseFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "PurchaseFragment - onCreate() called")
+
     }
     //Activity에 의존 프레그먼트를 안고 있는 액티비에 붙었을 때
     override fun onAttach(context: Context) {
@@ -54,6 +57,11 @@ class PurchaseFragment : Fragment() {
         if (savedInstanceState == null) {
             binding.purchaseNavi.selectedItemId = R.id.all
         }
+        binding.testBtn.setOnClickListener(){
+            Log.d("클릭이벤트확인", "클릭됨")
+            val intent = Intent(activity, PurchaseActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun onPurchaseNavItemListener() {
@@ -66,7 +74,6 @@ class PurchaseFragment : Fragment() {
                 }
                 R.id.outer -> {
                     Log.d(TAG, "outer - 외피 필름 클릭")
-                    CollectFragment.newInstance()
                     true
                 }
                 R.id.endothelial -> {
@@ -81,5 +88,10 @@ class PurchaseFragment : Fragment() {
             }
 
         }
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 }

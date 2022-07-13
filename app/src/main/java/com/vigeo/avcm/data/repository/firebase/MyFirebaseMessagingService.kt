@@ -15,7 +15,9 @@ import com.google.firebase.messaging.RemoteMessage
 import com.vigeo.avcm.R
 import com.vigeo.avcm.main.view.MainActivity
 
-class MyFirebaseMessagingService : FirebaseMessagingService() {
+class
+
+MyFirebaseMessagingService : FirebaseMessagingService() {
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
