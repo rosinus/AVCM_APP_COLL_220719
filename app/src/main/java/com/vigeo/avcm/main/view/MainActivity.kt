@@ -14,6 +14,7 @@ import com.vigeo.avcm.R
 import com.vigeo.avcm.collect.view.view.CollectActivity
 import com.vigeo.avcm.databinding.ActivityMainBinding
 import com.vigeo.avcm.main.viewmodel.KakaoMapMarker
+import com.vigeo.avcm.myInfo.view.MyInfoFragment
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
