@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".myInfo.view.FaqActivity">
+    tools:context=".myInfo.view.FaqActivity"
+    android:orientation="vertical">
 
     <FrameLayout
         android:id="@+id/faq_head"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:background="#ffffff"
+        android:background="@drawable/faq_layout_border_down"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,5 +34,12 @@
             android:text="←"
             android:textColor="#000000"
             android:textSize="24sp" />
+
     </FrameLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_faq"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>

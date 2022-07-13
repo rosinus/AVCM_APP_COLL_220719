@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/main"
     android:orientation="vertical"
-    tools:context=".main.view.MyInfoFragment">
+    tools:context=".myInfo.view.MyInfoFragment">
 
     <LinearLayout
         android:id="@+id/myInfoLinearLayout"
@@ -35,7 +35,7 @@
         android:layout_height="100dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
-        android:background="@drawable/myinfo_layout_bouder_up_down"
+        android:background="@drawable/myinfo_layout_border_up_down"
         android:orientation="horizontal"
         android:padding="30dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -68,7 +68,7 @@
         android:id="@+id/myInfo_waste_vinyl_record"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:background="@drawable/myinfo_layout_bouder_up"
+        android:background="@drawable/myinfo_layout_border_up"
         android:orientation="horizontal"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
@@ -110,7 +110,7 @@
         android:id="@+id/myInfo_purchase_records"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:background="@drawable/myinfo_layout_bouder_up"
+        android:background="@drawable/myinfo_layout_border_up"
         android:orientation="horizontal"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
@@ -152,7 +152,7 @@
         android:id="@+id/myInfo_frequently_asked_questions"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:background="@drawable/myinfo_layout_bouder_up"
+        android:background="@drawable/myinfo_layout_border_up"
         android:orientation="horizontal"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
@@ -194,7 +194,7 @@
         android:id="@+id/myInfo_guide_video"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:background="@drawable/myinfo_layout_bouder_up_down"
+        android:background="@drawable/myinfo_layout_border_up_down"
         android:orientation="horizontal"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"

@@ -1,4 +1,4 @@
-package com.vigeo.avcm.main.view
+package com.vigeo.avcm.myInfo.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.vigeo.avcm.databinding.FragmentMyInfoBinding
-import com.vigeo.avcm.myInfo.view.FaqActivity
 
 class MyInfoFragment : Fragment() {
 
@@ -31,7 +30,7 @@ class MyInfoFragment : Fragment() {
         Log.d("MyInfo : ", "MyInfo - onCreateView() called")
         myInfoBinding = FragmentMyInfoBinding.inflate(inflater, container, false)
 
-        myInfoBinding.myInfoWasteVinylRecord.setOnClickListener {
+        myInfoBinding.myInfoFrequentlyAskedQuestions.setOnClickListener {
             Log.d("Myinfo", "Faq로 이동")
             val intent = Intent(activity, FaqActivity::class.java)
             startActivity(intent)

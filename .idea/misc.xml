@@ -3,9 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/AVCM_APP/app/src/main/res/layouts/login/layout/activity_login.xml" value="0.1875" />
-        <entry key="..\:/AVCM_APP/app/src/main/res/menu/bottom_menu.xml" value="0.24114583333333334" />
-        <entry key="..\:/AVCM_APP/app/src/main/res/menu/purchase_menu.xml" value="0.24114583333333334" />
         <entry key="..\:/KHC/And/AVCM_APP_220704/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.131" />
         <entry key="..\:/KHC/And/AVCM_APP_220704/app/src/main/res/drawable/ic_launcher_background.xml" value="0.367" />
         <entry key="..\:/KHC/And/AVCM_APP_220704/app/src/main/res/drawable/round_button.xml" value="0.366" />
@@ -18,6 +15,39 @@
         <entry key="..\:/KHC/And/AVCM_APP_220704/app/src/main/res/menu/bottom_menu.xml" value="0.33" />
         <entry key="..\:/KHC/And/AVCM_APP_220704/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25" />
         <entry key="..\:/KHC/And/AVCM_APP_220704/app/src/main/res/xml/network_security_config.xml" value="0.24791666666666667" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/AVCM_APP_220704/app/src/main/res/drawable-v24/faq_layout_border_down.xml" value="0.2215" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/AVCM_APP_220704/app/src/main/res/drawable-v24/faq_layout_border_up_down.xml" value="0.2995" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/AVCM_APP_220704/app/src/main/res/drawable/ic_launcher_background.xml" value="0.239" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/AVCM_APP_220704/app/src/main/res/drawable/myinfo_layoutBouderUpDown.xml" value="0.2525" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/AVCM_APP_220704/app/src/main/res/drawable/myinfo_layout_border_up.xml" value="0.2995" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/AVCM_APP_220704/app/src/main/res/drawable/myinfo_layout_border_up_down.xml" value="0.2995" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/AVCM_APP_220704/app/src/main/res/drawable/myinfo_layout_bouder_up.xml" value="0.2525" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/AVCM_APP_220704/app/src/main/res/drawable/myinfo_layout_bouder_up_down.xml" value="0.2525" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/AVCM_APP_220704/app/src/main/res/drawable/myinfo_round_button_565656.xml" value="0.3775" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/AVCM_APP_220704/app/src/main/res/drawable/round_button.xml" value="0.239" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/AVCM_APP_220704/app/src/main/res/drawable/round_button_#565656.xml" value="0.239" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/AVCM_APP_220704/app/src/main/res/drawable/round_button_565656.xml" value="0.3775" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/AVCM_APP_220704/app/src/main/res/layout/activity_faq.xml" value="0.246875" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/AVCM_APP_220704/app/src/main/res/layout/activity_main.xml" value="0.2328125" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/AVCM_APP_220704/app/src/main/res/layout/activity_my_info.xml" value="0.25" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/AVCM_APP_220704/app/src/main/res/layout/fragment_collect.xml" value="0.2328125" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/AVCM_APP_220704/app/src/main/res/layout/fragment_home.xml" value="0.2328125" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/AVCM_APP_220704/app/src/main/res/layout/fragment_my_info.xml" value="0.23215785054575985" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/AVCM_APP_220704/app/src/main/res/layout/fragment_purchase.xml" value="0.246875" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/AVCM_APP_220704/app/src/main/res/layout/myinfo.xml" value="0.290625" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/AVCM_APP_220704/app/src/main/res/layout/pop_format_pw.xml" value="0.22447916666666667" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/AVCM_APP_220704/app/src/main/res/layouts/collect/layout/fragment_collect.xml" value="0.21458333333333332" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/AVCM_APP_220704/app/src/main/res/layouts/collect/layout/layout.xml" value="0.2" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/AVCM_APP_220704/app/src/main/res/layouts/join/layout/activity_join_step1.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/AVCM_APP_220704/app/src/main/res/layouts/join/layout/pop_join_ok.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/AVCM_APP_220704/app/src/main/res/layouts/login/layout/activity_login.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/AVCM_APP_220704/app/src/main/res/layouts/login/layout/pop_format_pw_ok.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/AVCM_APP_220704/app/src/main/res/layouts/main/layout/activity_main.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/AVCM_APP_220704/app/src/main/res/layouts/main/layout/fragment_my_info.xml" value="0.259375" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/AVCM_APP_220704/app/src/main/res/layouts/main/layout/fragment_purchase.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/AVCM_APP_220704/app/src/main/res/layouts/myinfo/layout/activity_faq.xml" value="0.2" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/AVCM_APP_220704/app/src/main/res/layouts/myinfo/layout/recycler_faq.xml" value="0.2504528985507246" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/AVCM_APP_220704/app/src/main/res/menu/bottom_menu.xml" value="0.2328125" />
         <entry key="..\:/KHC/And/AVCM_APP_220711/app/src/main/res/drawable-v24/dark_white_round_button.xml" value="0.367" />
         <entry key="..\:/KHC/And/AVCM_APP_220711/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.3405" />
         <entry key="..\:/KHC/And/AVCM_APP_220711/app/src/main/res/drawable/btn_close.xml" value="0.1955" />
@@ -89,6 +119,7 @@
         <entry key="..\:/Users/kwy/Desktop/vigeoApp/AVCM_APP_220704/app/src/main/res/drawable/round_button.xml" value="0.1955" />
         <entry key="..\:/Users/kwy/Desktop/vigeoApp/AVCM_APP_220704/app/src/main/res/drawable/round_edit_text.xml" value="0.1955" />
         <entry key="..\:/Users/kwy/Desktop/vigeoApp/AVCM_APP_220704/app/src/main/res/layout/activity_main.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/kwy/Desktop/vigeoApp/AVCM_APP_220704/app/src/main/res/layout/fragment_bla_purchase2.xml" value="0.1875" />
         <entry key="..\:/Users/kwy/Desktop/vigeoApp/AVCM_APP_220704/app/src/main/res/layout/fragment_blank.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/kwy/Desktop/vigeoApp/AVCM_APP_220704/app/src/main/res/layout/fragment_collect.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/kwy/Desktop/vigeoApp/AVCM_APP_220704/app/src/main/res/layout/fragment_home.xml" value="0.36614583333333334" />

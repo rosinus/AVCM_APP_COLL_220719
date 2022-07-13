@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/faq_layout_border_down">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/faq_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:padding="15dp"
+                android:text="Q. 수거위치 지도가 안 뜹니다."
+                android:textStyle="bold"></TextView>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/faq_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:padding="15dp"
+            android:visibility="gone"
+            android:text="A. 상단의 GPS를 켜 주시거나 핸드폰을 재접속해주세요."></TextView>
+    </LinearLayout>
+
+
+</LinearLayout>
