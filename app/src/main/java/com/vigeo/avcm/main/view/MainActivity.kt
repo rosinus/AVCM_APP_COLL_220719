@@ -1,20 +1,19 @@
 package com.vigeo.avcm.main.view
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.content.pm.Signature
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.lifecycle.ViewModelProvider
+import androidx.appcompat.app.AppCompatActivity
 import com.vigeo.avcm.R
+import com.vigeo.avcm.collect.view.view.CollectActivity
 import com.vigeo.avcm.databinding.ActivityMainBinding
 import com.vigeo.avcm.main.viewmodel.KakaoMapMarker
-import com.vigeo.avcm.main.viewmodel.KakaoMapMarkerProviderFactory
-import net.daum.mf.map.api.MapView
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
@@ -24,12 +23,9 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
     lateinit var kakaoMapMarker: KakaoMapMarker
-
     companion object {
-
         const val TAG: String = "로그"
     }
-
     val locationPermissionRequest = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->
@@ -58,7 +54,6 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             binding.bottomNavi.selectedItemId = R.id.menu_home
         }
-
     }
 
 
@@ -74,11 +69,11 @@ class MainActivity : AppCompatActivity() {
                         .replace(R.id.fragment_frame, HomeFragment()).commit()
                     true
                 }
+
                 R.id.menu_collect -> {
                     Log.d(TAG, "MainActivity - 수거신청 클릭")
-                    CollectFragment.newInstance()
-                    supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_frame, CollectFragment()).commit()
+                    val intent = Intent(this, CollectActivity::class.java)
+                    startActivity(intent)
                     true
                 }
                 R.id.menu_purchase -> {
