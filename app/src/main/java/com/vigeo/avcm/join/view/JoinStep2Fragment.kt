@@ -5,5 +5,4 @@ import androidx.fragment.app.Fragment
 class JoinStep2Fragment : Fragment() {
 
 
-
 }
