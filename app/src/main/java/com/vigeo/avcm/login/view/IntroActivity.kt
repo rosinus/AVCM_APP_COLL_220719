@@ -17,6 +17,7 @@ class IntroActivity : AppCompatActivity() {
         FragmentIntroStep1Binding.inflate(layoutInflater)
     }
 
+
     private val mainBinding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
@@ -30,10 +31,10 @@ class IntroActivity : AppCompatActivity() {
         val viewPager : ViewPager2 = introBinding.ivIntroViewPager
 
         // 2) FragmentStateAdapter 생성 : Fragment 여러개를 ViewPager2에 연결해주는 역할
-        val viewpagerFragmentAdapter = ViewpagerFragmentAdapter(this)
+        val intropagerFragmentAdapter = IntropagerFragmentAdapter(this)
 
         // 3) ViewPager2의 adapter에 설정
-        viewPager.adapter = viewpagerFragmentAdapter
+        viewPager.adapter = intropagerFragmentAdapter
 
 
         //인트로 완수 여부 Y

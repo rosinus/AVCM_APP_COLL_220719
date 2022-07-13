@@ -6,7 +6,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.vigeo.avcm.databinding.ActivityLoginBinding
-import com.vigeo.avcm.join.view.JoinStep1Activity
+import com.vigeo.avcm.join.view.JoinStep1Fragment
 import com.vigeo.avcm.main.view.MainActivity
 
 class LoginActivity  : AppCompatActivity() {
@@ -44,7 +44,7 @@ class LoginActivity  : AppCompatActivity() {
 
             Toast.makeText(this@LoginActivity, "회원가입 시도!", Toast.LENGTH_SHORT).show()
 
-            val intent: Intent = Intent(this@LoginActivity, JoinStep1Activity::class.java)
+            val intent: Intent = Intent(this@LoginActivity, JoinStep1Fragment::class.java)
 
             startActivity(intent)
         }
