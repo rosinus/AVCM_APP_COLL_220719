@@ -30,6 +30,13 @@ class MyInfoFragment : Fragment() {
         Log.d("=========================== MyInfo : ", "MyInfo - onCreateView() called ===========================")
         myInfoBinding = FragmentMyInfoBinding.inflate(inflater, container, false)
 
+        // 계정정보 수정으로 이동
+        myInfoBinding.myInformation.setOnClickListener {
+            Log.d("Myinfo", "계정정보 수정으로 이동")
+            val intent = Intent(activity, MyInfoActivity::class.java)
+            startActivity(intent)
+        }
+
         // FAQ 이동
         myInfoBinding.myInfoFrequentlyAskedQuestions.setOnClickListener {
             Log.d("Myinfo", "Faq로 이동")
@@ -39,7 +46,7 @@ class MyInfoFragment : Fragment() {
         
         // 가이드영상 이동
         myInfoBinding.myInfoGuideVideo.setOnClickListener {
-            Log.d("Myinfo", "Faq로 이동")
+            Log.d("Myinfo", "가이드영상으로 이동")
             val intent = Intent(activity, GuideVideoActivity::class.java)
             startActivity(intent)
         }

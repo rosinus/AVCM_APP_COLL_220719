@@ -7,12 +7,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 카카오 네비 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <!-- allowBackup : 기본 저장 데이터 설정 -->
-    <!-- icon : 기본 아이콘 설정 -->
-    <!-- roundIcon : 기본 둥근아이콘 설정 설정 -->
-    <!-- label : 기본 라벨 설정 -->
-    <!-- theme : 기본 테마 설정 -->
-    <!-- usesCleartextTraffic : Http 연결 설정 / 미설정시 Https 만 가능 -->
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -25,6 +20,9 @@
         android:theme="@style/Theme.Avcm_APP_20220704"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <activity
+            android:name=".myInfo.view.MyInfoActivity"
+            android:exported="false" />
         <activity
             android:name=".myInfo.view.GuideVideoActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
