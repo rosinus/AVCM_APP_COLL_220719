@@ -16,7 +16,6 @@ class MyInfoFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("MyInfo : ", "MyInfo - onCreate() called")
 
     }
 
@@ -28,15 +27,17 @@ class MyInfoFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        Log.d("MyInfo : ", "MyInfo - onCreateView() called")
+        Log.d("=========================== MyInfo : ", "MyInfo - onCreateView() called ===========================")
         myInfoBinding = FragmentMyInfoBinding.inflate(inflater, container, false)
 
+        // FAQ 이동
         myInfoBinding.myInfoFrequentlyAskedQuestions.setOnClickListener {
             Log.d("Myinfo", "Faq로 이동")
             val intent = Intent(activity, FaqActivity::class.java)
             startActivity(intent)
         }
-
+        
+        // 가이드영상 이동
         myInfoBinding.myInfoGuideVideo.setOnClickListener {
             Log.d("Myinfo", "Faq로 이동")
             val intent = Intent(activity, GuideVideoActivity::class.java)

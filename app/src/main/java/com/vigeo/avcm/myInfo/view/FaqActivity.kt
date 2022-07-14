@@ -29,10 +29,13 @@ class FaqActivity : AppCompatActivity() {
     private lateinit var faqbinding: ActivityFaqBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        Log.d("=========================== FaqActivity : ", "FaqActivity - onCreate() called ===========================")
         super.onCreate(savedInstanceState)
         faqbinding = ActivityFaqBinding.inflate(layoutInflater)
         setContentView(faqbinding.root)
 
+        /* retrofit DB 연결 */
         val gson : Gson = GsonBuilder()
             .setLenient()
             .create()
@@ -72,6 +75,7 @@ class FaqActivity : AppCompatActivity() {
     }
 }
 
+/* 어뎁터 */
 class faqAdapter(
     val layoutInflater: LayoutInflater,
     var faqInfoVo2: MyInfoVO
