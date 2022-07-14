@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.vigeo.avcm.databinding.ActivityGuideVideoBinding
 import com.vigeo.avcm.databinding.FragmentMyInfoBinding
 
 class MyInfoFragment : Fragment() {
@@ -33,6 +34,12 @@ class MyInfoFragment : Fragment() {
         myInfoBinding.myInfoFrequentlyAskedQuestions.setOnClickListener {
             Log.d("Myinfo", "Faq로 이동")
             val intent = Intent(activity, FaqActivity::class.java)
+            startActivity(intent)
+        }
+
+        myInfoBinding.myInfoGuideVideo.setOnClickListener {
+            Log.d("Myinfo", "Faq로 이동")
+            val intent = Intent(activity, GuideVideoActivity::class.java)
             startActivity(intent)
         }
 

@@ -50,7 +50,7 @@ class FaqActivity : AppCompatActivity() {
                     var faqInfoVo = response.body()!!
                     Log.d("\"FAQ : ", "onResponse 성공: " + faqInfoVo.toString());
 
-                    val adapter = recyAdapter(layoutInflater, faqInfoVo)
+                    val adapter = faqAdapter(layoutInflater, faqInfoVo)
                     faqbinding.recyclerFaq.adapter = adapter
                     faqbinding.recyclerFaq.layoutManager = LinearLayoutManager(this@FaqActivity)
                 }else{
@@ -72,10 +72,10 @@ class FaqActivity : AppCompatActivity() {
     }
 }
 
-class recyAdapter(
+class faqAdapter(
     val layoutInflater: LayoutInflater,
     var faqInfoVo2: MyInfoVO
-) : RecyclerView.Adapter<recyAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<faqAdapter.ViewHolder>() {
 
     // Item의 클릭 상태를 저장할 array 객체
     private var selectedItems: SparseBooleanArray = SparseBooleanArray()
