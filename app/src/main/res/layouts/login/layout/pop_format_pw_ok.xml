@@ -3,12 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#999999">
+    android:layout_height="match_parent">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="330dp"
         android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -25,13 +24,13 @@
             android:text="@string/pop_format_pw_ok_content"
             android:textColor="#000000"
             android:textSize="18sp"
-            app:layout_constraintBottom_toTopOf="@+id/btn_ok"
+            app:layout_constraintBottom_toTopOf="@+id/btn_pw_format_ok"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
 
         <Button
-            android:id="@+id/btn_ok"
+            android:id="@+id/btn_pw_format_ok"
             android:layout_width="match_parent"
             android:layout_height="65dp"
             android:background="@color/main"
