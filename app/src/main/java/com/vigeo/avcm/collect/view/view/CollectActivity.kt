@@ -8,19 +8,27 @@ import android.location.Geocoder
 import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import android.widget.RelativeLayout
-import android.widget.Toast
+import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.*
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.codec.language.bm.Lang
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.vigeo.avcm.R
+import com.vigeo.avcm.collect.view.viewmodel.*
 import com.vigeo.avcm.databinding.ActivityCollectBinding
 import com.vigeo.avcm.main.view.MainActivity
+import okhttp3.OkHttpClient
+import org.w3c.dom.Text
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 
 
@@ -35,13 +43,20 @@ class CollectActivity : AppCompatActivity(), OnMapReadyCallback {
     var boxMap: RelativeLayout? = null
     var mLatitude : Double? = null
     var mLongitude : Double? = null
-
-
+    var collectService : CollectService? = null
+    var retrofit: Retrofit? = null
     //지오 코더
     var currentLocation: String = "현재 위치"
     var mGeocoder: Geocoder? = null
     var mResultList: List<Address>? = null
     var locationProviderClient: FusedLocationProviderClient? = null
+    var CollectSize: Int? = null
+    var CollectLen: Double? = null
+    var CollectLon: Double? = null
+    var len = ArrayList<Double>()
+    var lon = ArrayList<Double>()
+    var mLocationManager: LocationManager? = null
+    var mLocationListener: LocationListener? = null
 
     val locationPermissionRequest = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
@@ -63,7 +78,9 @@ class CollectActivity : AppCompatActivity(), OnMapReadyCallback {
         setContentView(binding.root)
 
         val btnClose : Button = findViewById(R.id.btnClose)
+        var mylocation : TextView = binding.myLocation
         var CollectNext = binding.btnOk
+
         btnClose.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             intent.putExtra("back",btnClose.text.toString())
@@ -71,42 +88,102 @@ class CollectActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
         CollectNext.setOnClickListener {
+            Log.d("현재위치는","여기입니다"+mylocation.getText().toString())
             val intent = Intent(this, CollectNumActivity::class.java)
             intent.putExtra("back",btnClose.text.toString())
+            intent.putExtra("address",mylocation.getText().toString())
             startActivity(intent)
         }
 
 
         val mapFragment: SupportMapFragment = supportFragmentManager.findFragmentById(R.id.mapview) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+
+
     }
 
+
     override fun onMapReady(googleMap: GoogleMap) {
+        val gson : Gson = GsonBuilder()
+            .setLenient()
+            .create()
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl("http://192.168.0.189:8080/")
+            .client(OkHttpClient())
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+
+        retrofit.create(CollectService::class.java).getGpsList("O304UIUw3P78ZZPC5qBkmQ==").enqueue(object : Callback<CollectModel> {
+
+            override fun onResponse(call: Call<CollectModel>, response: Response<CollectModel>) {
+                if(response.isSuccessful){
+                    // 정상적으로 통신이 성공된 경우
+                    Log.d("\"집하장 : ", "통신 성공:" +response.body().toString());
+                    var Collect  = response.body()!!
+                    CollectSize = Collect.collectList.size
+                    for(i in 0 .. Collect.collectList.size-1 step(1)){
+                        len.add(Collect.collectList.get(i).gpsLen)
+                        lon.add(Collect.collectList.get(i).gpsLon)
+                    }
+                    for(i in 0..Collect.collectList.size-1 step(1)){
+                        var latLng = LatLng(len.get(i), lon.get(i))
+                        mMap.addMarker(MarkerOptions().position(latLng).title("마커 제목"))
+                    }
+                    //첫 시작 위치를 marker 내 위치로
+                }else{
+                    // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
+                    Log.d("\"집하장 : ", "통신 실패")
+                }
+            }
+            override fun onFailure(call: Call<CollectModel>, t: Throwable) {
+                Log.d("집하장 : ", "통신 실패")
+            }
+        })
+
+
+
         locationPermissionRequest.launch(arrayOf(
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION))
 
+        val locationManager = getSystemService(LOCATION_SERVICE) as LocationManager
+
+        //마지막 위치 받아오기
+        val loc_Current = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER) ?: locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
+
+        if(loc_Current != null) {
+            var cur_lat = loc_Current!!.latitude //위도
+            var cur_lon = loc_Current!!.longitude //경도
+            Log.d("마지막위치", "위도" + cur_lat)
+            Log.d("마지막위치", "경도" + cur_lon)
+            var Lang = LatLng(cur_lat,cur_lon)
+            val position =
+                com.google.android.gms.maps.model.CameraPosition.builder().target(Lang).zoom(18f)
+                    .build()
+            googleMap?.moveCamera((CameraUpdateFactory.newCameraPosition(position)))
+        }else if(loc_Current == null){
+            var cur_lat = 35.8343858//위도
+            var cur_lon = 127.1108093 //경도
+            var Lang = LatLng(cur_lat,cur_lon)
+            Log.d("마지막위치", "위도" + cur_lat)
+            Log.d("마지막위치", "경도" + cur_lon)
+            val position =
+                com.google.android.gms.maps.model.CameraPosition.builder().target(Lang).zoom(18f)
+                    .build()
+            googleMap?.moveCamera((CameraUpdateFactory.newCameraPosition(position)))
+        }
+
+
         val context = LOCATION_SERVICE
-        val locationManager: LocationManager =
-            getSystemService(Context.LOCATION_SERVICE) as LocationManager
-
+        getSystemService(Context.LOCATION_SERVICE) as LocationManager
         mMap = googleMap
-
-        val latLng = LatLng(35.818083, 127.107778)
         //구글 맵 내 위치 불러오기 버튼
         mMap.setMyLocationEnabled(true);
+
         //구글 맵 줌인 줌아웃
         googleMap.uiSettings.isZoomControlsEnabled = true
-        //마커 생성
-        mMap.addMarker(MarkerOptions().position(latLng).title("마커 제목"))
-        //첫 시작 위치를 marker 내 위치로
-        val position =
-            com.google.android.gms.maps.model.CameraPosition.builder().target(latLng).zoom(18f)
-                .build()
-        googleMap?.moveCamera((CameraUpdateFactory.newCameraPosition(position)))
-        /*mMap.animateCamera(CameraUpdateFactory.zoomTo(13F))*/
-        //마커 클릭 이벤트
-
         //지도 이동시 중심점 위도 경도 가져오기
         googleMap?.setOnCameraIdleListener {
             val position = googleMap!!.cameraPosition
@@ -114,8 +191,6 @@ class CollectActivity : AppCompatActivity(), OnMapReadyCallback {
             val latitude = position.target.latitude
             val longitude = position.target.longitude
             Log.d("kkang", "user change : $zoom, $latitude, $longitude")
-            mMap.addMarker(MarkerOptions().position(latLng).title("마커 제목"))
-
             try {
                 mGeocoder = Geocoder(applicationContext, Locale.KOREAN)
                 locationProviderClient = LocationServices.getFusedLocationProviderClient(this)
@@ -145,5 +220,4 @@ class CollectActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         }
     }
-
 }

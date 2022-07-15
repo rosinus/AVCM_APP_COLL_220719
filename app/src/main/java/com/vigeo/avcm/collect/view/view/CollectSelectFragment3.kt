@@ -2,6 +2,7 @@ package com.vigeo.avcm.collect.view.view
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +15,7 @@ import com.vigeo.avcm.databinding.FragmentCollect3Binding
 class CollectSelectFragment3 : Fragment() {
     private var _binding : FragmentCollect3Binding? = null
     private val binding : FragmentCollect3Binding get() = _binding!!
-
+    var count = 0
     //호출 했을때
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,6 +47,22 @@ class CollectSelectFragment3 : Fragment() {
         binding.btnBack.setOnClickListener {
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragment_collect, CollectSelectFragment2()).commit()
+        }
+
+        binding.btnMinus.setOnClickListener {
+            Log.d("클릭","마이너스 클릭")
+            if(count < 1){
+                count = 0
+            }else {
+                count --
+                binding.filmStepEnd.setText(count.toString())
+            }
+        }
+
+        binding.btnPlus.setOnClickListener {
+            Log.d("클릭","플러스 클릭")
+            count ++
+            binding.filmStepEnd.setText(count.toString())
         }
     }
 }
