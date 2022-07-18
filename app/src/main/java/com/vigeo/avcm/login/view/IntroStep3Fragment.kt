@@ -32,12 +32,11 @@ class IntroStep3Fragment : Fragment() {
         fragmentIntroStep3Binding.btnIntroOk.setOnClickListener{
 
             //사용자 인트로 봤음 처리 체크
-
             val intent = Intent(activity, LoginActivity::class.java)
-            //intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             startActivity(intent)
-            //화면 없애야함 finish()
+           // finish()
         }
+
         return fragmentIntroStep3Binding.root
        //return inflater.inflate(R.layout.fragment_intro_step3, container, false)
     }

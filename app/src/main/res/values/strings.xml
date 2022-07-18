@@ -12,6 +12,8 @@
     <string name="join_content">연락처는 ID 및 초기 비밀번호로 사용됩니다.</string>
     <string name="pop_join_ok_content">회원가입을 환영합니다!\n로그인 창으로 이동합니다.</string>
     <string name="pop_login_failure_content">로그인에 실패하였습니다.\n연락처 또는 비밀번호를 확인하세요.</string>
+    <string name="pop_error_content">문제가 발생하였습니다.\n다시 시도 또는 관리자에게 문의하세요.</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

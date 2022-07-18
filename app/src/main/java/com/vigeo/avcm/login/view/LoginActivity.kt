@@ -1,20 +1,29 @@
 package com.vigeo.avcm.login.view
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.vigeo.avcm.R
-import com.vigeo.avcm.databinding.ActivityLoginBinding
-import com.vigeo.avcm.databinding.PopFormatPwBinding
-import com.vigeo.avcm.databinding.PopFormatPwNoBinding
-import com.vigeo.avcm.databinding.PopFormatPwOkBinding
+import com.vigeo.avcm.databinding.*
 import com.vigeo.avcm.join.view.JoinActivity
+import com.vigeo.avcm.login.model.LoginVO
+import com.vigeo.avcm.login.model.UserObject
+import com.vigeo.avcm.login.service.LoginService
 import com.vigeo.avcm.main.view.MainActivity
+import okhttp3.OkHttpClient
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class LoginActivity  : AppCompatActivity() {
 
@@ -31,10 +40,41 @@ class LoginActivity  : AppCompatActivity() {
 
         //로그인 버튼 누를 시
         loginBinding.btnLoginOk.setOnClickListener {
-            //계정 존재 여부 API 호출 ( 리턴타입: 불리언 )
-            val isUserExist = false;
 
-            if(isUserExist){ //존재할 시
+
+            /* retrofit DB 연결 */
+            val gson : Gson = gsonCreate()
+            val retrofit = retrofitBuild(gson)
+
+
+            //계정 존재 여부 API 호출 ( 리턴타입: 불리언 )
+            isUserLogin(retrofit);
+
+          /*  if(isUserLogin){ //존재할 시
+
+
+                //기기에 사용자 정보 저장
+
+                //내부 저장소인 SharedPreferences 에 값을 저장하는 방법, 앱의 데이터를 삭제하기 전까지는 존재한다.
+                //vigeo란 이름으로 Context.MODE_PRIVATE : 내부 앱에서만 사용가능한 방법으로 저장함
+                val sharedPreference = getSharedPreferences("user", Context.MODE_PRIVATE)
+
+                //Editor (Key, Value)형식으로 저장하기 위함
+                //editor.putXXX 형식으로 형식에 맞춰서 넣어줘야함.
+                //반드시 commit을 해줘야함.
+                val editor : SharedPreferences.Editor = sharedPreference.edit()
+
+                editor.putString("userNo","23")
+                editor.putString("userNm","송은해")
+                editor.putString("email","")
+                editor.putString("phoneNum","01089870913")
+                editor.putString("zipCd", "")
+                editor.putString("addr","")
+                editor.putString("addrDetail","")
+                editor.putString("phoneCd","")
+
+                editor.commit()
+
 
                 val intent: Intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
@@ -42,7 +82,7 @@ class LoginActivity  : AppCompatActivity() {
 
             }else{ //존재하지 않을 시
                 formatNoDialog()
-            }
+            }*/
         }
 
         //회원가입 버튼 누를 시
@@ -75,32 +115,52 @@ class LoginActivity  : AppCompatActivity() {
             //비밀번호 초기화 버튼 누를 시
             formatPwBinding.btnFormatCheck.setOnClickListener {
 
+                /* retrofit DB 연결 */
+                val gson : Gson = gsonCreate()
+                val retrofit = retrofitBuild(gson)
+
                 //API에 보낼 파라미터
-                val username = formatPwBinding.etName.text
-                val phnum = formatPwBinding.etPhoneNum.text
-                val userGb = "04"; //농민
+                val userNm = formatPwBinding.etName.text.toString()
+                val userId = formatPwBinding.etPhoneNum.text.toString()
 
-                //API 호출 (리턴타입: 불리언)
-                val isExistUser = true;
+                val phoneNum = formatPwBinding.etPhoneNum.text //보내는 데이터는 아니지만 사용할 곳이 있음.
 
-                if(isExistUser){  //해당하는 계정정보 있을 시
+                //아이디 존재 여부 검사
+                retrofit.create(LoginService::class.java).isUserPwUpdate(
+                    userId = userId,
+                    userNm = userNm
+                ).enqueue(object :
+                    Callback<LoginVO> {
+                    override fun onResponse(call: Call<LoginVO>, response: Response<LoginVO>) {
 
-                    alertDialog.dismiss() //다이얼로그 닫기
-                    //사용자 비밀번호 초기화 API 호출 (리턴타입: 불리언)
-                    val isSuccessful = true;
-                    if(isSuccessful){ //초기화 성공적일 시
-                        //초기화 성공 팝업 호출
-                        formatOkDialog(phnum)
-                    }else{ //초기화 실패 시
+                        var userVO = response.body()!!
+                        val result = userVO.isUser
 
-                        //문제 발생 오류 팝업 호출
+                        if(response.isSuccessful){
+
+                            if(result){ //업데이트 성공
+
+                                alertDialog.dismiss() //다이얼로그 닫기
+                                formatOkDialog(phoneNum)
+
+                            }else{ //업데이트 실패
+
+                                formatNoDialog()
+
+                            }
+                            // 정상적으로 통신이 성공된 경우
+                            Log.d("\"Login // isUserLogin : ", "onResponse 성공: " + userVO.toString())
+
+                        }else{
+                            // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
+                            Log.d("\"Login // isUserLogin : ", "onResponse 실패")
+                        }
                     }
 
-                }else{ //해당하는 계정정보 없을 시
-
-                    //계정 존재 안함 팝업 호출
-                    formatNoDialog()
-                }
+                    override fun onFailure(call: Call<LoginVO>, t: Throwable) {
+                        Log.d("Login // isUserLogin : ", "onResponse 실패")
+                    }
+                })
             }
 
             alertDialog.show()
@@ -157,29 +217,107 @@ class LoginActivity  : AppCompatActivity() {
     }
 
 
-    override fun onStart() {
-        super.onStart()
-        Toast.makeText(this, "onStart", Toast.LENGTH_SHORT).show()
+
+    //오류 시 팝업
+    fun errorDialog(text: String){
+
+        val errorDialogView : View = layoutInflater.inflate(R.layout.pop_error, null)
+        val errorAlertDialog : AlertDialog = AlertDialog.Builder(this)
+            .setView(errorDialogView)
+            .create()
+
+        val errorBinding: PopErrorBinding by lazy {
+            PopErrorBinding.bind(errorDialogView)
+        }
+        errorBinding.tvContent.text = text
+
+        errorAlertDialog.show()
+
+        errorBinding.btnOk.setOnClickListener {
+            errorAlertDialog.dismiss()
+
+        }
     }
 
-    override fun onPause() {
-        super.onPause()
-        finish()
-        Toast.makeText(this, "onPause", Toast.LENGTH_SHORT).show()
+
+    private fun isUserLogin(retrofit: Retrofit) {
+        val userId = loginBinding.etLoginPhoneNum.text.toString()
+        val userPw = loginBinding.etLoginPw.text.toString()
+
+        //아이디 존재 여부 검사
+        retrofit.create(LoginService::class.java).isUserLogin(
+            userId = userId,
+            userPw = userPw
+        ).enqueue(object :
+            Callback<LoginVO> {
+            override fun onResponse(call: Call<LoginVO>, response: Response<LoginVO>) {
+
+                var userVO = response.body()!!
+                val result = userVO.isUser
+                val userObject : UserObject = userVO.userInfo
+
+                if(response.isSuccessful){
+
+                    if(result){ //로그인 성공
+
+                        //기기에 사용자 정보 저장
+                        //내부 저장소인 SharedPreferences 에 값을 저장하는 방법, 앱의 데이터를 삭제하기 전까지는 존재한다.
+                        //vigeo란 이름으로 Context.MODE_PRIVATE : 내부 앱에서만 사용가능한 방법으로 저장함
+                        val sharedPreference = getSharedPreferences("user", Context.MODE_PRIVATE)
+
+                        //Editor (Key, Value)형식으로 저장하기 위함
+                        //editor.putXXX 형식으로 형식에 맞춰서 넣어줘야함.
+                        //반드시 commit을 해줘야함.
+                        val editor : SharedPreferences.Editor = sharedPreference.edit()
+
+                        editor.putString("userNo",userObject.userNo)
+                        editor.putString("userNm",userObject.userNm)
+                        editor.putString("phoneNum",userObject.phoneNum)
+                        editor.putString("zipCd",userObject.zipCd)
+                        editor.putString("addr",userObject.addr)
+                        editor.putString("addrDetail",userObject.addrDetail)
+                        editor.putString("fcmToken",userObject.fcmToken)
+
+                        editor.commit()
+
+                        val intent: Intent = Intent(this@LoginActivity, MainActivity::class.java)
+                        startActivity(intent)
+                        finish()
+
+                    }else{ //로그인 실패
+
+                        return formatNoDialog()
+
+                    }
+                    // 정상적으로 통신이 성공된 경우
+                    Log.d("\"Login // isUserLogin : ", "onResponse 성공: " + userVO.toString())
+
+                }else{
+                    // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
+                    Log.d("\"Login // isUserLogin : ", "onResponse 실패")
+                }
+            }
+
+            override fun onFailure(call: Call<LoginVO>, t: Throwable) {
+                Log.d("Login // isUserLogin : ", "onResponse 실패")
+            }
+        })
     }
 
-    override fun onResume() {
-        super.onResume()
-        Toast.makeText(this, "onResume", Toast.LENGTH_SHORT).show()
+    private fun gsonCreate() : Gson {
+        val gson : Gson = GsonBuilder()
+            .setLenient()
+            .create()
+        return gson
     }
 
-    override fun onStop() {
-        super.onStop()
-        Toast.makeText(this, "onStop", Toast.LENGTH_SHORT).show()
+    private fun retrofitBuild(gson : Gson) : Retrofit {
+        val retrofit = Retrofit.Builder()
+            .baseUrl("http://192.168.0.192:8087/")
+            .client(OkHttpClient())
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+        return retrofit
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        Toast.makeText(this, "onDestroy", Toast.LENGTH_SHORT).show()
-    }
 }

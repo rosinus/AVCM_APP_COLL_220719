@@ -7,9 +7,12 @@
     android:background="@color/main">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/join_step1_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/join_step1_layout">
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <FrameLayout
             android:id="@+id/frameLayout"
@@ -57,7 +60,7 @@
 
 
             <EditText
-                android:id="@+id/et_login_name"
+                android:id="@+id/et_join_name"
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
                 android:layout_marginStart="20dp"
@@ -67,8 +70,8 @@
                 android:ems="10"
                 android:hint="성명"
                 android:inputType="textPersonName"
-                android:privateImeOptions="defaultInputmode=korean"
                 android:paddingLeft="100dp"
+                android:privateImeOptions="defaultInputmode=korean"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -89,16 +92,16 @@
             android:id="@+id/frameLayout2"
             android:layout_width="match_parent"
             android:layout_height="65dp"
-            android:layout_marginTop="200dp"
             android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/btn_go_step2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/frameLayout"
+            app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints">
 
 
             <EditText
-                android:id="@+id/et_login_phone_num"
+                android:id="@+id/et_join_phone_num"
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
                 android:layout_marginStart="20dp"
@@ -200,26 +203,26 @@
             android:id="@+id/join_postnum_layout"
             android:layout_width="match_parent"
             android:layout_height="65dp"
-            android:layout_marginTop="180dp"
             android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/btn_join"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/join_step2">
+            app:layout_constraintTop_toTopOf="parent">
 
 
-            <TextView
-                android:id="@+id/et_login_post_num"
+           <!-- <TextView
+                android:id="@+id/et_join_post_num"
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="15dp"
-                android:gravity="center|left"
                 android:background="@drawable/round_edit_text"
                 android:clickable="false"
                 android:ems="10"
                 android:focusable="false"
+                android:gravity="center|left"
                 android:hint="우편번호"
                 android:inputType="number"
                 android:paddingLeft="100dp"
@@ -228,7 +231,26 @@
                 app:layout_constraintBottom_toTopOf="@+id/et_login_pw"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
-
+-->
+            <EditText
+                android:id="@+id/et_join_post_num"
+                android:layout_width="match_parent"
+                android:layout_height="65dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="15dp"
+                android:background="@drawable/round_edit_text"
+                android:ems="10"
+                android:gravity="center|left"
+                android:hint="우편번호"
+                android:inputType="number"
+                android:maxLength="5"
+                android:paddingLeft="100dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/et_login_pw"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:layout_width="110dp"
@@ -253,18 +275,36 @@
             app:layout_constraintTop_toBottomOf="@+id/join_postnum_layout">
 
 
-            <TextView
-                android:id="@+id/et_login_addr"
+<!--            <TextView-->
+<!--                android:id="@+id/et_join_addr"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="65dp"-->
+<!--                android:layout_marginStart="20dp"-->
+<!--                android:layout_marginEnd="20dp"-->
+<!--                android:layout_marginBottom="15dp"-->
+<!--                android:background="@drawable/round_edit_text"-->
+<!--                android:clickable="false"-->
+<!--                android:ems="10"-->
+<!--                android:gravity="center|left"-->
+<!--                android:focusable="false"-->
+<!--                android:hint="주소"-->
+<!--                android:inputType="text"-->
+<!--                android:paddingLeft="100dp"-->
+<!--                android:textSize="20sp"-->
+<!--                android:textStyle="bold"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent" />-->
+            <EditText
+                android:id="@+id/et_join_addr"
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="15dp"
                 android:background="@drawable/round_edit_text"
-                android:clickable="false"
                 android:ems="10"
                 android:gravity="center|left"
-                android:focusable="false"
                 android:hint="주소"
                 android:inputType="text"
                 android:paddingLeft="100dp"
@@ -297,7 +337,7 @@
 
 
             <EditText
-                android:id="@+id/et_login_daddr"
+                android:id="@+id/et_join_daddr"
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
                 android:layout_marginStart="20dp"
