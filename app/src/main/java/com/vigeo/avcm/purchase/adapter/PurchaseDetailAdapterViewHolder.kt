@@ -1,10 +1,12 @@
 package com.vigeo.avcm.purchase.adapter
 
+import android.content.Intent
 import android.util.Log
 import android.view.inputmethod.EditorInfo
 import androidx.recyclerview.widget.RecyclerView
 import com.vigeo.avcm.databinding.ItemPurchaseDetailBinding
 import com.vigeo.avcm.purchase.data.model.Purchase
+import com.vigeo.avcm.purchase.view.PurchaseActivity
 import java.text.DecimalFormat
 
 class PurchaseDetailAdapterViewHolder (
@@ -20,8 +22,10 @@ class PurchaseDetailAdapterViewHolder (
             binding.pordWidth.text = purchase.prodWidth.toString() + "cm"
             binding.prodThickness.text = purchase.prodThickness.toString() + "mm"
             binding.userNm.text = purchase.userNm.toString()
-            binding.prodPirce.text = purchase.prodPrice.toString()
+            binding.prodPirce.text = purchase.prodPrice.toString() + "원"
             binding.prodLtdCnt.text = purchase.prodLtdCnt.toString()
+            binding.buy.text = purchase.prodPrice.toString() + "원"
+
             binding.prodCnt.setOnEditorActionListener{ textView, action, event ->
                 var handled = false
                 if (action == EditorInfo.IME_ACTION_DONE) {
@@ -43,6 +47,21 @@ class PurchaseDetailAdapterViewHolder (
                 Log.d("클릭","플러스 클릭")
                 numFormat(true)
             }
+        }
+        binding.etPhoneNum.setOnClickListener(){
+            var tel : String = purchase.phoneNum.toString()
+
+//            Intent(context, PurchaseActivity::class.java).apply {
+//
+//                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//            }.run { context.startActivity(this) }
+
+//            var tel : String = purchase.phoneNum.toString()
+//            var intent = Intent(Intent.ACTION_DIAL, Uri.parse(tel))
+//            intent.data = Uri.parse("tel:0537207900")
+//
+//                startActivity(intent)
+
         }
     }
 
