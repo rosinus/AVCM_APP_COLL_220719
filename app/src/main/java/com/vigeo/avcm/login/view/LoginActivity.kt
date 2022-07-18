@@ -34,55 +34,23 @@ class LoginActivity  : AppCompatActivity() {
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(loginBinding.root)
-
         Log.d("Login : ", "Login - onCreate() called")
 
+        //회원가입 완료 후 로그인 화면으로 넘어올 때
+        //회원가입 시 입력했던 연락처 정보를 로그인화면에 입력함
+        if(intent.hasExtra("userId")) {
+            loginBinding.etLoginPhoneNum.setText(intent.getStringExtra("userId"))
+        }
 
         //로그인 버튼 누를 시
         loginBinding.btnLoginOk.setOnClickListener {
-
 
             /* retrofit DB 연결 */
             val gson : Gson = gsonCreate()
             val retrofit = retrofitBuild(gson)
 
-
             //계정 존재 여부 API 호출 ( 리턴타입: 불리언 )
             isUserLogin(retrofit);
-
-          /*  if(isUserLogin){ //존재할 시
-
-
-                //기기에 사용자 정보 저장
-
-                //내부 저장소인 SharedPreferences 에 값을 저장하는 방법, 앱의 데이터를 삭제하기 전까지는 존재한다.
-                //vigeo란 이름으로 Context.MODE_PRIVATE : 내부 앱에서만 사용가능한 방법으로 저장함
-                val sharedPreference = getSharedPreferences("user", Context.MODE_PRIVATE)
-
-                //Editor (Key, Value)형식으로 저장하기 위함
-                //editor.putXXX 형식으로 형식에 맞춰서 넣어줘야함.
-                //반드시 commit을 해줘야함.
-                val editor : SharedPreferences.Editor = sharedPreference.edit()
-
-                editor.putString("userNo","23")
-                editor.putString("userNm","송은해")
-                editor.putString("email","")
-                editor.putString("phoneNum","01089870913")
-                editor.putString("zipCd", "")
-                editor.putString("addr","")
-                editor.putString("addrDetail","")
-                editor.putString("phoneCd","")
-
-                editor.commit()
-
-
-                val intent: Intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                finish()
-
-            }else{ //존재하지 않을 시
-                formatNoDialog()
-            }*/
         }
 
         //회원가입 버튼 누를 시
@@ -134,26 +102,30 @@ class LoginActivity  : AppCompatActivity() {
                     override fun onResponse(call: Call<LoginVO>, response: Response<LoginVO>) {
 
                         var userVO = response.body()!!
-                        val result = userVO.isUser
-
+                        val result = userVO.isUser //userChack
+                        val errorMsg = userVO.errorMsg //오류내용
                         if(response.isSuccessful){
 
                             if(result){ //업데이트 성공
 
                                 alertDialog.dismiss() //다이얼로그 닫기
                                 formatOkDialog(phoneNum)
+                                alertDialog.dismiss()
+
+                                Log.d("\"Login // isUserPwUpdate : ", "onResponse 성공: result :: $result")
 
                             }else{ //업데이트 실패
 
                                 formatNoDialog()
 
+                                Log.d("\"Login // isUserPwUpdate : ","사용자 정보 업데이트 실패, 오류 내용:$errorMsg")
                             }
                             // 정상적으로 통신이 성공된 경우
-                            Log.d("\"Login // isUserLogin : ", "onResponse 성공: " + userVO.toString())
+                            Log.d("\"Login // isUserPwUpdate : ", "onResponse 성공: " + userVO.toString())
 
                         }else{
                             // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
-                            Log.d("\"Login // isUserLogin : ", "onResponse 실패")
+                            Log.d("\"Login // isUserPwUpdate : ", "onResponse 실패")
                         }
                     }
 
@@ -241,6 +213,7 @@ class LoginActivity  : AppCompatActivity() {
 
 
     private fun isUserLogin(retrofit: Retrofit) {
+
         val userId = loginBinding.etLoginPhoneNum.text.toString()
         val userPw = loginBinding.etLoginPw.text.toString()
 
@@ -254,15 +227,15 @@ class LoginActivity  : AppCompatActivity() {
 
                 var userVO = response.body()!!
                 val result = userVO.isUser
-                val userObject : UserObject = userVO.userInfo
 
                 if(response.isSuccessful){
 
-                    if(result){ //로그인 성공
+                    if(result == true){ //로그인 성공
 
+                        val userObject : UserObject? = userVO.userInfo
                         //기기에 사용자 정보 저장
                         //내부 저장소인 SharedPreferences 에 값을 저장하는 방법, 앱의 데이터를 삭제하기 전까지는 존재한다.
-                        //vigeo란 이름으로 Context.MODE_PRIVATE : 내부 앱에서만 사용가능한 방법으로 저장함
+                        //vigeo란 이름으로 Context.MODE_PRIVATE :내부 앱에서만 사용가능한 방법으로 저장함
                         val sharedPreference = getSharedPreferences("user", Context.MODE_PRIVATE)
 
                         //Editor (Key, Value)형식으로 저장하기 위함
@@ -270,13 +243,15 @@ class LoginActivity  : AppCompatActivity() {
                         //반드시 commit을 해줘야함.
                         val editor : SharedPreferences.Editor = sharedPreference.edit()
 
-                        editor.putString("userNo",userObject.userNo)
-                        editor.putString("userNm",userObject.userNm)
-                        editor.putString("phoneNum",userObject.phoneNum)
-                        editor.putString("zipCd",userObject.zipCd)
-                        editor.putString("addr",userObject.addr)
-                        editor.putString("addrDetail",userObject.addrDetail)
-                        editor.putString("fcmToken",userObject.fcmToken)
+                        if (userObject != null) {
+                            editor.putString("userNo",userObject.userNo)
+                            editor.putString("userNm",userObject.userNm)
+                            editor.putString("phoneNum",userObject.phoneNum)
+                            editor.putString("zipCd",userObject.zipCd)
+                            editor.putString("addr",userObject.addr)
+                            editor.putString("addrDetail",userObject.addrDetail)
+                            editor.putString("fcmToken",userObject.fcmToken)
+                        }
 
                         editor.commit()
 
@@ -286,7 +261,7 @@ class LoginActivity  : AppCompatActivity() {
 
                     }else{ //로그인 실패
 
-                        return formatNoDialog()
+                        return errorDialog("연락처 또는 비밀번호가 일치하지 않습니다.")
 
                     }
                     // 정상적으로 통신이 성공된 경우

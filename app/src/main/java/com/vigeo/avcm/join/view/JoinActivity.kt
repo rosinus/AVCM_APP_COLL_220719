@@ -7,6 +7,7 @@ import android.view.KeyEvent
 import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.vigeo.avcm.R
@@ -107,7 +108,6 @@ class JoinActivity : AppCompatActivity() {
                 return@setOnClickListener errorDialog("상세 주소를 입력하세요.")
             }
 
-
             //존재하는 아이디인지 확인 및 추가
             isUserExist(retrofit)
 
@@ -157,9 +157,8 @@ class JoinActivity : AppCompatActivity() {
             joinOkAlertDialog.dismiss()
 
             val intent = Intent(this, LoginActivity::class.java)
+            intent.putExtra("userId", joinBinding.etJoinPhoneNum.text.toString())
             startActivity(intent)
-            //아이디 가지고 가서
-            //로그인 화면에 아이디 뿌려주기
             finish()
         }
     }
@@ -176,12 +175,19 @@ class JoinActivity : AppCompatActivity() {
 
     private fun userInsert(retrofit: Retrofit) {
 
+        var fcmToken : String? = null
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if(task.isSuccessful){
+                fcmToken = task.result
+            }
+        }
         val userId = joinBinding.etJoinPhoneNum.text.toString()
         val userPw = joinBinding.etJoinPhoneNum.text.toString()
         val zipCd = joinBinding.etJoinPostNum.text.toString()
         val addr = joinBinding.etJoinAddr.text.toString()
         val addrDetail = joinBinding.etJoinDaddr.text.toString()
         val userNm = joinBinding.etJoinName.text.toString()
+
 
         //아이디 중복만 검사
         retrofit.create(JoinService::class.java).userInsert(
@@ -190,7 +196,8 @@ class JoinActivity : AppCompatActivity() {
             zipCd = zipCd,
             addr = addr,
             addrDetail = addrDetail,
-            userNm = userNm
+            userNm = userNm,
+            fcmToken = fcmToken
         ).enqueue(object :
             Callback<JoinVO> {
             override fun onResponse(call: Call<JoinVO>, response: Response<JoinVO>) {
@@ -223,6 +230,7 @@ class JoinActivity : AppCompatActivity() {
 
     private fun isUserExist(retrofit: Retrofit) {
         val userId = joinBinding.etJoinPhoneNum.text.toString()
+
         //아이디 중복만 검사
         retrofit.create(JoinService::class.java).isUserExist(
             userId = userId,
@@ -239,7 +247,8 @@ class JoinActivity : AppCompatActivity() {
 
                     if(result){ //아이디 중복
                         //아이디 중복 팝업 호출
-                       return errorDialog("이미 등록된 연락처입니다.\\n 다시 확인해주세요.")
+                       return errorDialog("이미 등록된 연락처입니다.\n 다시 확인해주세요.")
+
                     }else{
                        return userInsert(retrofit)
                     }

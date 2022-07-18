@@ -20,7 +20,8 @@ interface JoinService {
                    @Field("userNm") userNm : String?,
                    @Field("zipCd") zipCd : String,
                    @Field("addr") addr : String,
-                   @Field("addrDetail") addrDetail : String
+                   @Field("addrDetail") addrDetail : String,
+                   @Field("fcmToken") fcmToken : String?
     ): Call<JoinVO>
 
 
