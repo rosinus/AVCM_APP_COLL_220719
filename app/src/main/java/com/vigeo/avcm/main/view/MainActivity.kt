@@ -10,11 +10,15 @@ import android.util.Base64
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.vigeo.avcm.R
 import com.vigeo.avcm.collect.view.view.CollectActivity
 import com.vigeo.avcm.databinding.ActivityMainBinding
 import com.vigeo.avcm.main.viewmodel.KakaoMapMarker
 import com.vigeo.avcm.myInfo.view.MyInfoFragment
+import com.vigeo.avcm.purchase.repository.PurchaseRepositoryImpl
+import com.vigeo.avcm.purchase.viewmodel.PurchaseViewModel
+import com.vigeo.avcm.purchase.viewmodel.PurchaseViewModelProviderFactory
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
@@ -23,6 +27,8 @@ class MainActivity : AppCompatActivity() {
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
+    lateinit var purchaseViewModel: PurchaseViewModel
+
     lateinit var kakaoMapMarker: KakaoMapMarker
     companion object {
         const val TAG: String = "로그"
@@ -55,6 +61,9 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             binding.bottomNavi.selectedItemId = R.id.menu_home
         }
+        val purchaseRepository = PurchaseRepositoryImpl()
+        val factory = PurchaseViewModelProviderFactory(purchaseRepository)
+        purchaseViewModel = ViewModelProvider(this, factory)[PurchaseViewModel::class.java]
     }
 
 
@@ -79,7 +88,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.menu_purchase -> {
                     Log.d(TAG, "MainActivity - 구매신청 클릭")
-                    PurchaseFragment.newInstance()
+                    //PurchaseFragment.newInstance()
                     supportFragmentManager.beginTransaction()
                         .replace(R.id.fragment_frame, PurchaseFragment()).commit()
                     true
