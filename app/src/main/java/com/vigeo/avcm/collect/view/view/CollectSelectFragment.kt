@@ -39,8 +39,6 @@ class CollectSelectFragment : Fragment() {
     ): View? {
         _binding = FragmentCollect1Binding.inflate(inflater, container, false)
 
-
-
         return binding.root
     }
 
@@ -48,13 +46,19 @@ class CollectSelectFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         // NumActivity 에서 넘겨온 데이터를 받는 작업
-        // 지금 생각 해보니 Frament12를 거치고 3에서 한번에 받아서 처리해도 될거 같음.. 바보코딩임
-        val mylocation = arguments?.getString("number1")
-        Log.d("지도에서 다음 누를시 :","주소 전송"+mylocation)
+        var mylocation = arguments?.getString("number1")
+        if(mylocation == null){
+            mylocation = arguments?.getString("backmylocation")
+        }
+        var lat = arguments?.getDouble("lat")
+        var lot = arguments?.getDouble("lot")
+        var userNo = arguments?.getInt("userNo")
+        if(userNo == null){
+            userNo = arguments?.getInt("backUserNo")
+        }
         var count1 = count.toString()
 
         binding.btnMinus.setOnClickListener {
-            Log.d("클릭","마이너스 클릭")
             if(count < 1){
                 count = 0
             }else {
@@ -65,7 +69,6 @@ class CollectSelectFragment : Fragment() {
 
 
         binding.btnPlus.setOnClickListener {
-            Log.d("클릭","플러스 클릭")
             count ++
             binding.filmStep3.setText(count.toString())
         }
@@ -77,10 +80,10 @@ class CollectSelectFragment : Fragment() {
             var bundle = Bundle()
             bundle.putString("mylocation", mylocation.toString())
             bundle.putString("count", count.toString())
+            bundle.putDouble("lat", lat!!)
+            bundle.putDouble("lot", lot!!)
+            bundle.putInt("userNo",userNo!!)
             fragmentCollect2.arguments = bundle
-
-            Log.d("넘길 3중필름 m은","몇개?" + count+"미터")
-            Log.d("1,2중 외피 가기전에 주소","잘 오나요??" + mylocation)
 
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragment_collect, fragmentCollect2).commit()

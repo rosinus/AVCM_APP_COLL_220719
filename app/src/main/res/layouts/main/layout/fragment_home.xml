@@ -36,7 +36,7 @@
         tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
-        android:id="@+id/but_collect2"
+        android:id="@+id/but_purchase"
         android:layout_width="350dp"
         android:layout_height="100dp"
         android:layout_marginTop="20dp"
@@ -53,7 +53,7 @@
         tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
-        android:id="@+id/but_collect3"
+        android:id="@+id/but_faq"
         android:layout_width="350dp"
         android:layout_height="100dp"
         android:layout_marginTop="20dp"
@@ -66,11 +66,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/but_collect2"
+        app:layout_constraintTop_toBottomOf="@+id/but_purchase"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
-        android:id="@+id/but_collect4"
+        android:id="@+id/but_guide"
         android:layout_width="350dp"
         android:layout_height="100dp"
         android:layout_marginTop="20dp"
@@ -83,7 +83,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/but_collect3"
+        app:layout_constraintTop_toBottomOf="@+id/but_faq"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
@@ -135,8 +135,8 @@
         android:text="구매신청"
         android:textSize="20dp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/but_collect2"
-        app:layout_constraintTop_toTopOf="@+id/but_collect2" />
+        app:layout_constraintStart_toStartOf="@+id/but_purchase"
+        app:layout_constraintTop_toTopOf="@+id/but_purchase" />
 
     <TextView
         android:id="@+id/textView10"
@@ -147,7 +147,7 @@
         android:elevation="10dp"
         android:textSize="15dp"
         android:text="마을 단위 비닐 구매 신청"
-        app:layout_constraintStart_toStartOf="@+id/but_collect2"
+        app:layout_constraintStart_toStartOf="@+id/but_purchase"
         app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
     <ImageView
@@ -156,9 +156,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="30dp"
         android:elevation="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/but_collect2"
-        app:layout_constraintEnd_toEndOf="@+id/but_collect2"
-        app:layout_constraintTop_toTopOf="@+id/but_collect2"
+        app:layout_constraintBottom_toBottomOf="@+id/but_purchase"
+        app:layout_constraintEnd_toEndOf="@+id/but_purchase"
+        app:layout_constraintTop_toTopOf="@+id/but_purchase"
         app:srcCompat="@drawable/shopping" />
 
     <TextView
@@ -172,8 +172,8 @@
         android:textStyle="bold"
         android:textColor="@color/black"
         android:text="자주 묻는 질문"
-        app:layout_constraintStart_toStartOf="@+id/but_collect3"
-        app:layout_constraintTop_toTopOf="@+id/but_collect3" />
+        app:layout_constraintStart_toStartOf="@+id/but_faq"
+        app:layout_constraintTop_toTopOf="@+id/but_faq" />
 
     <TextView
         android:id="@+id/textView12"
@@ -186,8 +186,8 @@
         android:elevation="10dp"
         android:textColor="@color/black"
         android:text="가이드 영상"
-        app:layout_constraintStart_toStartOf="@+id/but_collect4"
-        app:layout_constraintTop_toTopOf="@+id/but_collect4" />
+        app:layout_constraintStart_toStartOf="@+id/but_guide"
+        app:layout_constraintTop_toTopOf="@+id/but_guide" />
 
     <TextView
         android:id="@+id/textView13"
@@ -198,7 +198,7 @@
         android:elevation="10dp"
         android:text="간편한 서비스 이용 위한\n빠른 질의문답"
         android:textSize="15dp"
-        app:layout_constraintStart_toStartOf="@+id/but_collect3"
+        app:layout_constraintStart_toStartOf="@+id/but_faq"
         app:layout_constraintTop_toBottomOf="@+id/textView11" />
 
     <ImageView
@@ -207,9 +207,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:elevation="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/but_collect3"
-        app:layout_constraintEnd_toEndOf="@+id/but_collect3"
-        app:layout_constraintTop_toTopOf="@+id/but_collect3"
+        app:layout_constraintBottom_toBottomOf="@+id/but_faq"
+        app:layout_constraintEnd_toEndOf="@+id/but_faq"
+        app:layout_constraintTop_toTopOf="@+id/but_faq"
         app:srcCompat="@drawable/faq" />
 
     <TextView
@@ -221,7 +221,7 @@
         android:elevation="10dp"
         android:text="서비스 이용 방법을 제공하는\n영상"
         android:textSize="15dp"
-        app:layout_constraintStart_toStartOf="@+id/but_collect4"
+        app:layout_constraintStart_toStartOf="@+id/but_guide"
         app:layout_constraintTop_toBottomOf="@+id/textView12" />
 
     <ImageView
@@ -230,9 +230,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:elevation="10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/but_collect4"
-        app:layout_constraintEnd_toEndOf="@+id/but_collect4"
-        app:layout_constraintTop_toTopOf="@+id/but_collect4"
+        app:layout_constraintBottom_toBottomOf="@+id/but_guide"
+        app:layout_constraintEnd_toEndOf="@+id/but_guide"
+        app:layout_constraintTop_toTopOf="@+id/but_guide"
         app:srcCompat="@drawable/video" />
 
 

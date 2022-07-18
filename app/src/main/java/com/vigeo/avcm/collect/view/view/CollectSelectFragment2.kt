@@ -40,20 +40,24 @@ class CollectSelectFragment2 : Fragment() {
         return binding.root
     }
 
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //Fragment1에서 보낸 값 받아야함
         var mylocation = arguments?.getString("mylocation")
-        Log.d("3중필름m선택 후 다음 누를시 :","주소 전송"+mylocation)
+        if(mylocation == null){
+            mylocation = arguments?.getString("backmylocation")
+        }
         var previousCount = arguments?.getString("count")
-        Log.d("3중필름m선택 후 다음 누를시 :","3중필름의 수거m는"+previousCount)
-
-
-
+        if(previousCount == null){
+            previousCount = arguments?.getString("backcount")
+        }
+        var lat = arguments?.getDouble("lat")
+        var lot = arguments?.getDouble("lot")
+        var userNo = arguments?.getInt("userNo")
+        if(userNo == null){
+            userNo = arguments?.getInt("backUserNo")
+        }
         binding.btnMinus.setOnClickListener {
-            Log.d("클릭","마이너스 클릭")
             if(count < 1){
                 count = 0
             }else {
@@ -63,7 +67,6 @@ class CollectSelectFragment2 : Fragment() {
         }
 
         binding.btnPlus.setOnClickListener {
-            Log.d("클릭","플러스 클릭")
             count ++
             binding.filmStep12.setText(count.toString())
         }
@@ -74,9 +77,11 @@ class CollectSelectFragment2 : Fragment() {
             bundle.putString("mylocation", mylocation.toString())
             bundle.putString("count3", previousCount.toString())
             bundle.putString("count12", count.toString())
-            Log.d("마지막으로 가기전","주소는?" +mylocation)
-            Log.d("3중필름","갯수는?" +previousCount)
-            Log.d("1.2중필름","갯수는?" +count.toString())
+            bundle.putDouble("lat", lat!!)
+            bundle.putDouble("lot", lot!!)
+            bundle.putInt("userNo",userNo!!)
+            Log.d("잘감","위도"+userNo)
+
             fragmentCollect3.arguments = bundle
 
             parentFragmentManager.beginTransaction()
@@ -84,8 +89,13 @@ class CollectSelectFragment2 : Fragment() {
         }
 
         binding.btnBack.setOnClickListener {
+            var fragmentBack : CollectSelectFragment = CollectSelectFragment()
+            var bundle = Bundle()
+            bundle.putString("backmylocation", mylocation.toString())
+            bundle.putInt("backUserNo", userNo!!)
+            fragmentBack.arguments = bundle
             parentFragmentManager.beginTransaction()
-                .replace(R.id.fragment_collect, CollectSelectFragment()).commit()
+                .replace(R.id.fragment_collect, fragmentBack).commit()
         }
     }
 }

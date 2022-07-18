@@ -8,6 +8,8 @@ data class CollectModel(
     @SerializedName("collectList")
     val collectList: ArrayList<collectListObject>,
 
+    @SerializedName("collectInsert")
+    var collectInsert: String
 )
 
 
@@ -25,4 +27,3 @@ data class collectListObject(
     @SerializedName("gpsLon")
     var gpsLon : Double,
 )
-

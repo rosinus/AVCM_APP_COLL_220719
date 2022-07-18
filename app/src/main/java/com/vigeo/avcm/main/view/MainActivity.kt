@@ -8,6 +8,7 @@ import android.content.pm.Signature
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -24,12 +25,14 @@ import java.security.NoSuchAlgorithmException
 
 
 class MainActivity : AppCompatActivity() {
+    private var backKeyPressedTime: Long = 0
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
     lateinit var purchaseViewModel: PurchaseViewModel
 
-    lateinit var kakaoMapMarker: KakaoMapMarker
+
+
     companion object {
         const val TAG: String = "로그"
     }
@@ -68,6 +71,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun onBottomNavItemListener() {
+
         binding.bottomNavi.setOnItemSelectedListener {
             //Log.d("클릭")
             when (it.itemId) {
@@ -122,6 +126,25 @@ class MainActivity : AppCompatActivity() {
             } catch (e: NoSuchAlgorithmException) {
                 Log.e("KEY_HASH", "Unable to get MessageDigest. signature = " + signature, e)
             }
+        }
+    }
+    override fun onBackPressed() {
+        //super.onBackPressed();
+        // 기존 뒤로 가기 버튼의 기능을 막기 위해 주석 처리 또는 삭제
+
+        // 마지막으로 뒤로 가기 버튼을 눌렀던 시간에 2.5초를 더해 현재 시간과 비교 후
+        // 마지막으로 뒤로 가기 버튼을 눌렀던 시간이 2.5초가 지났으면 Toast 출력
+        // 2500 milliseconds = 2.5 seconds
+        if (System.currentTimeMillis() > backKeyPressedTime + 2500) {
+            backKeyPressedTime = System.currentTimeMillis();
+            Toast.makeText(this, "뒤로 가기 버튼을 한 번 더 누르시면 종료됩니다.", Toast.LENGTH_LONG);
+            return;
+        }
+        // 마지막으로 뒤로 가기 버튼을 눌렀던 시간에 2.5초를 더해 현재 시간과 비교 후
+        // 마지막으로 뒤로 가기 버튼을 눌렀던 시간이 2.5초가 지나지 않았으면 종료
+        if (System.currentTimeMillis() <= backKeyPressedTime + 2500) {
+            finish();
+           Toast.makeText(this,"이용해 주셔서 감사합니다.",Toast.LENGTH_LONG);
         }
     }
 }

@@ -37,26 +37,16 @@ class CollectActivity : AppCompatActivity(), OnMapReadyCallback {
         ActivityCollectBinding.inflate(layoutInflater)
     }
     private lateinit var mMap: GoogleMap
-    var googleMap: GoogleMap? = null
-    var mapFragment: MapFragment? = null
-    var locationManager : LocationManager? = null
-    var boxMap: RelativeLayout? = null
-    var mLatitude : Double? = null
-    var mLongitude : Double? = null
-    var collectService : CollectService? = null
-    var retrofit: Retrofit? = null
     //지오 코더
     var currentLocation: String = "현재 위치"
     var mGeocoder: Geocoder? = null
     var mResultList: List<Address>? = null
     var locationProviderClient: FusedLocationProviderClient? = null
     var CollectSize: Int? = null
-    var CollectLen: Double? = null
-    var CollectLon: Double? = null
     var len = ArrayList<Double>()
     var lon = ArrayList<Double>()
-    var mLocationManager: LocationManager? = null
-    var mLocationListener: LocationListener? = null
+    var lat : Double = 0.00
+    var lot : Double = 0.00
 
     val locationPermissionRequest = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
@@ -88,10 +78,12 @@ class CollectActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
         CollectNext.setOnClickListener {
-            Log.d("현재위치는","여기입니다"+mylocation.getText().toString())
+
             val intent = Intent(this, CollectNumActivity::class.java)
             intent.putExtra("back",btnClose.text.toString())
             intent.putExtra("address",mylocation.getText().toString())
+            intent.putExtra("lat",lat.toDouble())
+            intent.putExtra("lot",lot.toDouble())
             startActivity(intent)
         }
 
@@ -120,7 +112,6 @@ class CollectActivity : AppCompatActivity(), OnMapReadyCallback {
             override fun onResponse(call: Call<CollectModel>, response: Response<CollectModel>) {
                 if(response.isSuccessful){
                     // 정상적으로 통신이 성공된 경우
-                    Log.d("\"집하장 : ", "통신 성공:" +response.body().toString());
                     var Collect  = response.body()!!
                     CollectSize = Collect.collectList.size
                     for(i in 0 .. Collect.collectList.size-1 step(1)){
@@ -156,8 +147,6 @@ class CollectActivity : AppCompatActivity(), OnMapReadyCallback {
         if(loc_Current != null) {
             var cur_lat = loc_Current!!.latitude //위도
             var cur_lon = loc_Current!!.longitude //경도
-            Log.d("마지막위치", "위도" + cur_lat)
-            Log.d("마지막위치", "경도" + cur_lon)
             var Lang = LatLng(cur_lat,cur_lon)
             val position =
                 com.google.android.gms.maps.model.CameraPosition.builder().target(Lang).zoom(18f)
@@ -167,8 +156,7 @@ class CollectActivity : AppCompatActivity(), OnMapReadyCallback {
             var cur_lat = 35.8343858//위도
             var cur_lon = 127.1108093 //경도
             var Lang = LatLng(cur_lat,cur_lon)
-            Log.d("마지막위치", "위도" + cur_lat)
-            Log.d("마지막위치", "경도" + cur_lon)
+
             val position =
                 com.google.android.gms.maps.model.CameraPosition.builder().target(Lang).zoom(18f)
                     .build()
@@ -190,7 +178,7 @@ class CollectActivity : AppCompatActivity(), OnMapReadyCallback {
             val zoom = position.zoom
             val latitude = position.target.latitude
             val longitude = position.target.longitude
-            Log.d("kkang", "user change : $zoom, $latitude, $longitude")
+
             try {
                 mGeocoder = Geocoder(applicationContext, Locale.KOREAN)
                 locationProviderClient = LocationServices.getFusedLocationProviderClient(this)
@@ -198,12 +186,13 @@ class CollectActivity : AppCompatActivity(), OnMapReadyCallback {
                 locationProviderClient!!.lastLocation.addOnSuccessListener {
                     var latitude = position.target.latitude
                     var longitude = position.target.longitude
-                    println("1위도: $latitude, 경도: $longitude")
+
+                    lat = latitude
+                    lot = longitude
                     try {
                         mResultList = mGeocoder!!.getFromLocation(
                             latitude!!, longitude!!, 1
                         )
-                        println("위치 정보 받아오기 성공")
                     } catch (e: Exception) {
                         e.printStackTrace()
                         Toast.makeText(applicationContext, "좌표를 변환하지 못했습니다.", Toast.LENGTH_LONG)
@@ -219,5 +208,9 @@ class CollectActivity : AppCompatActivity(), OnMapReadyCallback {
                 Toast.makeText(applicationContext, "위치 정보를 받아오지 못했습니다.", Toast.LENGTH_LONG).show()
             }
         }
+    }
+    override fun onBackPressed() {
+        //super.onBackPressed();
+
     }
 }

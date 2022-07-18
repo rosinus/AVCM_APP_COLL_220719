@@ -1,6 +1,7 @@
 package com.vigeo.avcm.main.view
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,9 +9,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.vigeo.avcm.R
+import com.vigeo.avcm.collect.view.view.CollectActivity
+import com.vigeo.avcm.collect.view.view.CollectSelectFragment
+import com.vigeo.avcm.databinding.FragmentHomeBinding
+import com.vigeo.avcm.myInfo.view.FaqActivity
+import com.vigeo.avcm.myInfo.view.GuideVideoActivity
 
 class HomeFragment : Fragment() {
-
+    private var _binding : FragmentHomeBinding? = null
+    private val binding : FragmentHomeBinding get() = _binding!!
 
     companion object{
         //log 출력을 편하게 하기 위해서
@@ -36,14 +43,30 @@ class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
-        Log.d(TAG, "HomeFragment - onCreate() called")
 
-        var view = inflater.inflate(R.layout.fragment_home, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        return view
+        return binding.root
     }
-
-
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        binding.butCollect.setOnClickListener {
+        val intent = Intent(getActivity(), CollectActivity::class.java)
+        startActivity(intent)
+        }
+        binding.butPurchase.setOnClickListener {
+            var fragmentNext : PurchaseFragment = PurchaseFragment()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_frame,fragmentNext).commit()
+        }
+        binding.butFaq.setOnClickListener {
+            val intent = Intent(getActivity(), FaqActivity::class.java)
+            startActivity(intent)
+        }
+        binding.butGuide.setOnClickListener {
+            val intent = Intent(getActivity(), GuideVideoActivity::class.java)
+            startActivity(intent)
+        }
+    }
 }
