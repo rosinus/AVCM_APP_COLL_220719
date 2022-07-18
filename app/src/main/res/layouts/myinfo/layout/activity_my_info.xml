@@ -136,6 +136,7 @@
                     android:layout_marginBottom="5dp"
                     android:background="@drawable/myinfo_layout_border_down_only"
                     android:hint="(영어,숫자 구성 8~16자)"
+                    android:digits="0123456789qwertzuiopasdfghjklyxcvbnm"
                     android:inputType="textPassword"
                     android:maxLength="16"
                     android:paddingLeft="15dp"
@@ -177,6 +178,7 @@
                     android:layout_marginBottom="5dp"
                     android:background="@drawable/myinfo_layout_border_down_only"
                     android:hint="비밀번호확인"
+                    android:digits="0123456789qwertzuiopasdfghjklyxcvbnm"
                     android:inputType="textPassword"
                     android:maxLength="16"
                     android:paddingLeft="15dp"
@@ -219,7 +221,6 @@
                     android:background="@drawable/myinfo_layout_border_down_only"
                     android:hint="성명"
                     android:inputType="text"
-                    android:maxLength="16"
                     android:paddingLeft="15dp"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -228,12 +229,12 @@
 
         <!-- 우편번호 -->
         <LinearLayout
+            android:id="@+id/my_info_addr_enabled"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/my_info_zip_cd2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left|center"
@@ -257,17 +258,15 @@
                     android:layout_marginRight="15dp"
                     android:layout_marginBottom="5dp"
                     android:background="@drawable/myinfo_layout_border_down_only"
+                    android:enabled="true"
+                    android:focusable="false"
                     android:hint="우편번호"
                     android:inputType="text"
-                    android:maxLength="16"
                     android:paddingLeft="15dp"
                     android:textSize="18sp"
                     android:textStyle="bold" />
             </LinearLayout>
-        </LinearLayout>
 
-        <!-- 주소 -->
-        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -296,9 +295,10 @@
                     android:layout_marginRight="15dp"
                     android:layout_marginBottom="5dp"
                     android:background="@drawable/myinfo_layout_border_down_only"
+                    android:enabled="true"
+                    android:focusable="false"
                     android:hint="주소"
                     android:inputType="text"
-                    android:maxLength="16"
                     android:paddingLeft="15dp"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -337,7 +337,6 @@
                     android:background="@drawable/myinfo_layout_border_down_only"
                     android:hint="상세주소"
                     android:inputType="text"
-                    android:maxLength="16"
                     android:paddingLeft="15dp"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -396,6 +395,7 @@
         android:layout_gravity="bottom">
 
         <Button
+            android:id="@+id/my_info_ok_button"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_alignParentBottom="true"
