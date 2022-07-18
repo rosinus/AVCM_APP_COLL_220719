@@ -15,10 +15,12 @@ import com.google.firebase.messaging.RemoteMessage
 import com.vigeo.avcm.R
 import com.vigeo.avcm.main.view.MainActivity
 
-class
+class MyFirebaseMessagingService : FirebaseMessagingService() {
 
-MyFirebaseMessagingService : FirebaseMessagingService() {
-
+    /**
+     *  메세지를 받았을 때
+     *  그 메세지에 대하여 구현하는 부분
+     */
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         super.onMessageReceived(remoteMessage)
         Log.d("mytag", "From: ${remoteMessage.from}")
@@ -29,11 +31,19 @@ MyFirebaseMessagingService : FirebaseMessagingService() {
         }
     }
 
+    /**
+     * 구글 토큰 얻음
+     * 아래 토큰은 앱이 설치된 디바이스에 대한 고유값으로 푸시를 보낼 때 사용됨
+     */
     override fun onNewToken(token: String) {
         Log.d("mytag", "Refreshed token: $token")
         super.onNewToken(token)
     }
 
+
+    /**
+     *  remoteMessage 메세지 안에 getData와 getNotification있음
+     * */
     private fun sendNotification(title: String, messageBody: String) {
         val intent = Intent(this, MainActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)

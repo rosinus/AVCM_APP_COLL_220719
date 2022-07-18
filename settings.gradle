@@ -12,5 +12,8 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+
+//allproject 추가 안됨 dependencyResolutionManagement>repositories 내에 쓸 것 권장
+
 rootProject.name = "Avcm_APP_20220704"
 include ':app'

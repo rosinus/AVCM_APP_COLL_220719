@@ -30,6 +30,7 @@ class JoinActivity : AppCompatActivity() {
         ActivityJoinBinding.inflate(layoutInflater)
     }
 
+
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(joinBinding.root)

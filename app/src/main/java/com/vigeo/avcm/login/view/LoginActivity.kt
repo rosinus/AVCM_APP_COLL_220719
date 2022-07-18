@@ -1,8 +1,6 @@
 package com.vigeo.avcm.login.view
 
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.util.Log
@@ -12,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.vigeo.avcm.R
+import com.vigeo.avcm.data.MySharedPreferences.Companion.pref
 import com.vigeo.avcm.databinding.*
 import com.vigeo.avcm.join.view.JoinActivity
 import com.vigeo.avcm.login.model.LoginVO
@@ -31,10 +30,44 @@ class LoginActivity  : AppCompatActivity() {
         ActivityLoginBinding.inflate(layoutInflater)
     }
 
+    /***
+     *  FCM 관련 코드, 실행 되나 필요하지 않아 주석처리함
+     *  사용 시 onCreate내부에 createNotificationChannel() 추가
+     *  //어플리케이션 -> 어플 검색 -> 앱 알림 -> 알림 카테고리 노출
+     *
+    //알림 설정
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT)
+            channel.description = CHANNEL_DESCRIPTION
+
+            val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+
+    //연결할 정보
+    companion object {
+        private const val CHANNEL_NAME = "AVCM"
+        private const val CHANNEL_DESCRIPTION = "폐자원 재활용을 위한 농업용 폐비닐 수거 관리 서비스 개발"
+        private const val CHANNEL_ID = "avcm-vigeo"
+    }
+
+    ***/
+
+
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(loginBinding.root)
         Log.d("Login : ", "Login - onCreate() called")
+
+        //내부 저장소에 로그인 정보 있는지 확인
+        if(pref.getString("userNo", "") != ""){ //정보 있을 경우
+            //곧바로 메인화면으로 이동
+            val intent: Intent = Intent(this@LoginActivity, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
 
         //회원가입 완료 후 로그인 화면으로 넘어올 때
         //회원가입 시 입력했던 연락처 정보를 로그인화면에 입력함
@@ -130,6 +163,8 @@ class LoginActivity  : AppCompatActivity() {
                     }
 
                     override fun onFailure(call: Call<LoginVO>, t: Throwable) {
+
+                        return errorDialog("통신 연결에 실패하였습니다. 와이파이가 있는 곳에서 이용해주세요.")
                         Log.d("Login // isUserLogin : ", "onResponse 실패")
                     }
                 })
@@ -230,30 +265,23 @@ class LoginActivity  : AppCompatActivity() {
 
                 if(response.isSuccessful){
 
-                    if(result == true){ //로그인 성공
+                    if(result){ //로그인 성공
 
                         val userObject : UserObject? = userVO.userInfo
-                        //기기에 사용자 정보 저장
-                        //내부 저장소인 SharedPreferences 에 값을 저장하는 방법, 앱의 데이터를 삭제하기 전까지는 존재한다.
-                        //vigeo란 이름으로 Context.MODE_PRIVATE :내부 앱에서만 사용가능한 방법으로 저장함
-                        val sharedPreference = getSharedPreferences("user", Context.MODE_PRIVATE)
-
-                        //Editor (Key, Value)형식으로 저장하기 위함
-                        //editor.putXXX 형식으로 형식에 맞춰서 넣어줘야함.
-                        //반드시 commit을 해줘야함.
-                        val editor : SharedPreferences.Editor = sharedPreference.edit()
 
                         if (userObject != null) {
-                            editor.putString("userNo",userObject.userNo)
-                            editor.putString("userNm",userObject.userNm)
-                            editor.putString("phoneNum",userObject.phoneNum)
-                            editor.putString("zipCd",userObject.zipCd)
-                            editor.putString("addr",userObject.addr)
-                            editor.putString("addrDetail",userObject.addrDetail)
-                            editor.putString("fcmToken",userObject.fcmToken)
-                        }
 
-                        editor.commit()
+                            pref.setString("userNo",userObject.userNo.toString())
+                            pref.setString("userNm",userObject.userNm.toString())
+                            pref.setString("phoneNum",userObject.phoneNum.toString())
+                            pref.setString("zipCd",userObject.zipCd.toString())
+                            pref.setString("addr",userObject.addr.toString())
+                            pref.setString("addrDetail",userObject.addrDetail.toString())
+                            pref.setString("fcmToken",userObject.fcmToken.toString())
+
+                            pref.commit()
+
+                        }
 
                         val intent: Intent = Intent(this@LoginActivity, MainActivity::class.java)
                         startActivity(intent)

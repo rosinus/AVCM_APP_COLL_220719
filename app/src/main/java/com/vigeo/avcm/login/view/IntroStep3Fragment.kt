@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.vigeo.avcm.data.MySharedPreferences.Companion.pref
 import com.vigeo.avcm.databinding.FragmentIntroStep3Binding
 
 class IntroStep3Fragment : Fragment() {
@@ -32,9 +33,14 @@ class IntroStep3Fragment : Fragment() {
         fragmentIntroStep3Binding.btnIntroOk.setOnClickListener{
 
             //사용자 인트로 봤음 처리 체크
+            pref.setBoolean("isIntro", true)
+
             val intent = Intent(activity, LoginActivity::class.java)
             startActivity(intent)
-           // finish()
+            activity?.supportFragmentManager
+                ?.beginTransaction()
+                ?.remove(this)
+                ?.commit()
         }
 
         return fragmentIntroStep3Binding.root

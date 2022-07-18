@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "9821226803",
-    "project_id": "vigeofcm",
-    "storage_bucket": "vigeofcm.appspot.com"
+    "project_number": "703963802025",
+    "project_id": "avcm-vigeo",
+    "storage_bucket": "avcm-vigeo.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:9821226803:android:21d4ada600c57b1b366046",
+        "mobilesdk_app_id": "1:703963802025:android:423923fbce5a51f9e1fcb8",
         "android_client_info": {
           "package_name": "com.vigeo.avcm"
         }
       },
       "oauth_client": [
         {
-          "client_id": "9821226803-vtin5142qikve589o7q5046bkbblu3l1.apps.googleusercontent.com",
+          "client_id": "703963802025-e03lhrdg1bll65eej6lriikqsiemgghu.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDbhks_CSr-wxzZSECIJAydFS9eQiEVprU"
+          "current_key": "AIzaSyBdpSl75WAGNkfVIFY7IPDHJNbxsMfO98Q"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "9821226803-vtin5142qikve589o7q5046bkbblu3l1.apps.googleusercontent.com",
+              "client_id": "703963802025-e03lhrdg1bll65eej6lriikqsiemgghu.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
