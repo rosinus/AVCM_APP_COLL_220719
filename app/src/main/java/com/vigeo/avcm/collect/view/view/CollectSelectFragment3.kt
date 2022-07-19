@@ -59,11 +59,16 @@ class CollectSelectFragment3 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         //마지막으로 데이터를 받고 여기서 플러스 마이너스 한 값까지 담아서 팝업에서 insert처리 합니다
         var mylocation = arguments?.getString("mylocation")
+        Log.d("멀칭필름에서 받는 : ","위치는"+mylocation)
         var previousCount = arguments?.getString("count3")
+        Log.d("멀칭필름에서 받는 3중필름 갯수 : ",previousCount+"개")
         var previousCount2 = arguments?.getString("count12")
+        Log.d("멀칭필름에서 받는 1,2중필름 갯수 : ?",previousCount2+"개")
         var lat = arguments?.getDouble("lat")
+        Log.d("멀칭필름에서 받는 위도 : ?","위도는"+lat)
         var lot = arguments?.getDouble("lot")
-        var userNo = arguments?.getInt("userNo")
+        Log.d("멀칭필름에서 받는 경도 : ?","경도는"+lot)
+        var userNo = arguments?.getString("userNo")
         //구글맵 주소 , 3중 필름 ,12중 필름,위도및경도 데이터 다 받아왔습니다.
 
         super.onViewCreated(view, savedInstanceState)
@@ -84,19 +89,18 @@ class CollectSelectFragment3 : Fragment() {
         }
 
         binding.btnNext.setOnClickListener {
-
+           var count1 = binding.filmStepEnd.text.toString()
            val dialogView = layoutInflater.inflate(R.layout.pop_collect, null)
            var alertDialog = AlertDialog.Builder(requireContext())
                 .setView(dialogView)
                 .setCancelable(false)
                 .create()
-            val vinyl3 = dialogView.findViewById<TextView>(R.id.vinyl3).setText(previousCount+"m")
-            val vinyl12 = dialogView.findViewById<TextView>(R.id.vinyl12).setText(previousCount2+"m")
-            val vinyl1 = dialogView.findViewById<TextView>(R.id.vinyl1).setText(count.toString()+"m")
+           val vinyl3 = dialogView.findViewById<TextView>(R.id.vinyl3).setText(previousCount+"m")
+           val vinyl12 = dialogView.findViewById<TextView>(R.id.vinyl12).setText(previousCount2+"m")
+           val vinyl1 = dialogView.findViewById<TextView>(R.id.vinyl1).setText(count1+"m")
                 alertDialog.show()
            var btnNo : Button? =  alertDialog.findViewById(R.id.btn_cancell)
            var btnYes : Button? = alertDialog.findViewById(R.id.btn_ok)
-
 
             btnNo?.setOnClickListener {
                 alertDialog.dismiss()
@@ -111,11 +115,10 @@ class CollectSelectFragment3 : Fragment() {
                     .client(OkHttpClient())
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build()
-                val prodInfoLength3 = binding.filmStepEnd.text.toString().toDouble()
-                Log.d("데이터전송","ㄱ?"+prodInfoLength3)
+                val prodInfoLength3 = count1.toDouble()
                 val prodInfoLength1 = previousCount?.toDouble()
                 val prodInfoLength2 = previousCount2?.toDouble()
-                val applicantNo = userNo
+                val applicantNo = userNo.toString().toInt()
                 val collectAddr = mylocation
                 val collectGpsLen = lat
                 val collectGpsLon = lot
@@ -125,7 +128,7 @@ class CollectSelectFragment3 : Fragment() {
                     prodInfoLength1 = prodInfoLength1,
                     prodInfoLength2 = prodInfoLength2,
                     prodInfoLength3 = prodInfoLength3,
-                    applicantNo = applicantNo!!,
+                    applicantNo = applicantNo,
                     collectAddr = collectAddr,
                     collectGpsLen = collectGpsLen!!,
                     collectGpsLon = collectGpsLon!!
@@ -166,8 +169,15 @@ class CollectSelectFragment3 : Fragment() {
             var fragmentBack : CollectSelectFragment2 = CollectSelectFragment2()
             var bundle = Bundle()
             bundle.putString("backmylocation", mylocation.toString())
+            Log.d("멀칭필름에서 뒤로 보내는 : ?","위치는"+mylocation)
             bundle.putString("backcount", previousCount.toString())
-            bundle.putInt("backUserNo", userNo!!)
+            Log.d("멀칭필름에서 뒤로 보내는 : ?","3중 필름은?"+previousCount)
+            bundle.putString("backUserNo", userNo)
+            Log.d("멀칭필름에서 뒤로 보내는 : ?","유저No은?"+ userNo)
+            bundle.putDouble("backlat", lat!!.toDouble())
+            Log.d("멀칭필름에서 뒤로 보내는 : ?","lat 값은?"+lat)
+            bundle.putDouble("backlot", lot!!.toDouble())
+            Log.d("멀칭필름에서 뒤로 보내는 : ?","lot 값은?"+lot)
             fragmentBack.arguments = bundle
             parentFragmentManager.beginTransaction()
                 .replace(R.id.fragment_collect, fragmentBack).commit()

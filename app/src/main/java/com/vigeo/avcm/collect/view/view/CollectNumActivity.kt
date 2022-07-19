@@ -7,6 +7,7 @@ import android.util.Log
 import com.vigeo.avcm.R
 import com.vigeo.avcm.databinding.ActivityCollectNumBinding
 import com.vigeo.avcm.databinding.ActivityMainBinding
+import com.vigeo.avcm.data.MySharedPreferences.Companion.pref
 
 class CollectNumActivity : AppCompatActivity() {
     private val binding: ActivityCollectNumBinding by lazy {
@@ -28,14 +29,14 @@ class CollectNumActivity : AppCompatActivity() {
         var number1 = intent.getStringExtra("address")
         var lat  = intent.getDoubleExtra("lat",0.00)
         var lot  = intent.getDoubleExtra("lot",0.00)
-        var userNo : Int = sharedPreference.getInt("userNo", 1)
+        var userNo : String = pref.getString("userNo", "")
 
         //btndle을 만들어서 CollectActivity 에서 받아온 데이터를 가져와 다시 bundle 타입에 putStirng 타입으로 담아줍니다.
         var bundle = Bundle()
         bundle.putString("number1", number1)
         bundle.putDouble("lat",lat)
         bundle.putDouble("lot",lot)
-        bundle.putInt("userNo", userNo!!)
+        bundle.putString("userNo", userNo)
         ///fragment의 arguments에 데이터를 담은 bundle을 넘겨줌
         fragmentCollect1.arguments = bundle
 

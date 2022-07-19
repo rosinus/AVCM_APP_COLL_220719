@@ -44,6 +44,7 @@ class CollectActivity : AppCompatActivity(), OnMapReadyCallback {
     var CollectSize: Int? = null
     var len = ArrayList<Double>()
     var lon = ArrayList<Double>()
+    var collectGroundNm = ArrayList<String>()
     var lat : Double = 0.00
     var lot : Double = 0.00
 
@@ -116,10 +117,11 @@ class CollectActivity : AppCompatActivity(), OnMapReadyCallback {
                     for(i in 0 .. Collect.collectList.size-1 step(1)){
                         len.add(Collect.collectList.get(i).gpsLen)
                         lon.add(Collect.collectList.get(i).gpsLon)
+                        collectGroundNm.add(Collect.collectList.get(i).collectGroundNm)
                     }
                     for(i in 0..Collect.collectList.size-1 step(1)){
                         var latLng = LatLng(len.get(i), lon.get(i))
-                        mMap.addMarker(MarkerOptions().position(latLng).title("마커 제목"))
+                        mMap.addMarker(MarkerOptions().position(latLng).title("집하장명:"+collectGroundNm.get(i)))
                     }
                     //첫 시작 위치를 marker 내 위치로
                 }else{

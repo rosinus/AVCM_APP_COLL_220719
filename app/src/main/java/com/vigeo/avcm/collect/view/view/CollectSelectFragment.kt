@@ -17,7 +17,6 @@ import java.text.DecimalFormat
 class CollectSelectFragment : Fragment() {
     private var _binding : FragmentCollect1Binding? = null
     private val binding : FragmentCollect1Binding get() = _binding!!
-
     //호출 했을때
     var count = 0
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,10 +50,18 @@ class CollectSelectFragment : Fragment() {
             mylocation = arguments?.getString("backmylocation")
         }
         var lat = arguments?.getDouble("lat")
+        if(lat == 0.00 || lat == 0.0){
+            lat = arguments?.getDouble("backlat")
+            Log.d("되돌아 와서"," 12중필름에서 lat 이정도받음"+lat)
+        }
         var lot = arguments?.getDouble("lot")
-        var userNo = arguments?.getInt("userNo")
+        if(lot == 0.00 || lat == 0.0){
+            lot = arguments?.getDouble("backlot")
+            Log.d("되돌아 와서"," 12중필름에서 lot 이정도받음"+lot)
+        }
+        var userNo = arguments?.getString("userNo")
         if(userNo == null){
-            userNo = arguments?.getInt("backUserNo")
+            userNo = arguments?.getString("backUserNo")
         }
         var count1 = count.toString()
 
@@ -76,13 +83,14 @@ class CollectSelectFragment : Fragment() {
         //여기부턴 NumActivity 랑 똑같습니당 ^^
 
         binding.btnNext.setOnClickListener {
+            count1 = binding.filmStep3.text.toString()
             var fragmentCollect2 :CollectSelectFragment2 = CollectSelectFragment2()
             var bundle = Bundle()
             bundle.putString("mylocation", mylocation.toString())
-            bundle.putString("count", count.toString())
+            bundle.putString("count", count1)
             bundle.putDouble("lat", lat!!)
             bundle.putDouble("lot", lot!!)
-            bundle.putInt("userNo",userNo!!)
+            bundle.putString("userNo",userNo)
             fragmentCollect2.arguments = bundle
 
             parentFragmentManager.beginTransaction()
