@@ -78,12 +78,16 @@ class LoginActivity  : AppCompatActivity() {
         //로그인 버튼 누를 시
         loginBinding.btnLoginOk.setOnClickListener {
 
-            /* retrofit DB 연결 */
-            val gson : Gson = gsonCreate()
-            val retrofit = retrofitBuild(gson)
+            if(loginBinding.etLoginPw.text.toString().isEmpty() || loginBinding.etLoginPhoneNum.text.toString().length < 11){
+                errorDialog("연락처 또는 비밀번호를 확인해주세요.")
+            }else {
+                /* retrofit DB 연결 */
+                val gson: Gson = gsonCreate()
+                val retrofit = retrofitBuild(gson)
 
-            //계정 존재 여부 API 호출 ( 리턴타입: 불리언 )
-            isUserLogin(retrofit);
+                //계정 존재 여부 API 호출 ( 리턴타입: 불리언 )
+                isUserLogin(retrofit);
+            }
         }
 
         //회원가입 버튼 누를 시
@@ -144,7 +148,6 @@ class LoginActivity  : AppCompatActivity() {
 
                                 alertDialog.dismiss() //다이얼로그 닫기
                                 formatOkDialog(phoneNum)
-                                alertDialog.dismiss()
 
                                 Log.d("\"Login // isUserPwUpdate : ", "onResponse 성공: result :: $result")
 
@@ -180,7 +183,7 @@ class LoginActivity  : AppCompatActivity() {
     //비밀번호 초기화 완료 팝업
     fun formatOkDialog(tv : Editable?){
         //비밀번호 초기화 완료 팝업을 현재 레이아웃 위에 다이얼로그로 생성
-        val formatOkDialogView : View = layoutInflater.inflate(R.layout.pop_format_buy_ok, null)
+        val formatOkDialogView : View = layoutInflater.inflate(R.layout.pop_format_pw_ok, null)
         val formatOkAlertDialog : AlertDialog = AlertDialog.Builder(this)
             .setView(formatOkDialogView)
             .setCancelable(false)
@@ -208,7 +211,7 @@ class LoginActivity  : AppCompatActivity() {
     fun formatNoDialog(){
 
         //계정 정보 없음 팝업을 현재 레이아웃 위에 다이얼로그로 생성
-        val formatNoDialogView : View = layoutInflater.inflate(R.layout.pop_format_buy_no, null)
+        val formatNoDialogView : View = layoutInflater.inflate(R.layout.pop_format_pw_no, null)
         val formatNoAlertDialog : AlertDialog = AlertDialog.Builder(this)
             .setView(formatNoDialogView)
             .setCancelable(false)
