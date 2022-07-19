@@ -31,6 +31,23 @@ interface MyInfoService {
         @Field("addrDetail") addrDetail: String = ""
     ): Call<MyInfoVO>
 
+    //faqList 불러오기
+    @FormUrlEncoded
+    @POST("appApi/userApp/isUserExist.do")
+    fun isUserExist(
+        @Field("vigeoToken") vigeoToken: String = "O304UIUw3P78ZZPC5qBkmQ==",
+        @Field("userGb") userGb: String = "04",
+        @Field("phoneNum") userId: String = "",
+    ): Call<MyInfoVO>
+
+    //faqList 불러오기
+    @FormUrlEncoded
+    @POST("appApi/userApp/isUserDelect.do")
+    fun isUserDelect(
+        @Field("vigeoToken") vigeoToken: String = "O304UIUw3P78ZZPC5qBkmQ==",
+        @Field("userNo") userNo: String = "",
+    ): Call<MyInfoVO>
+
 
 
 

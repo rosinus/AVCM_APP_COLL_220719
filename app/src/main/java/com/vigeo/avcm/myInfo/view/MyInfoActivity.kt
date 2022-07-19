@@ -2,6 +2,7 @@ package com.vigeo.avcm.myInfo.view
 
 import android.annotation.TargetApi
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
 import android.net.http.SslError
 import android.os.Build
@@ -18,7 +19,8 @@ import com.vigeo.avcm.R
 import com.vigeo.avcm.databinding.ActivityMyInfoBinding
 import com.vigeo.avcm.databinding.PopErrorBinding
 import com.vigeo.avcm.databinding.PopFormatPwOkBinding
-import com.vigeo.avcm.login.view.PopFormatPwOk
+import com.vigeo.avcm.databinding.PopUserDeleteBinding
+import com.vigeo.avcm.login.view.LoginActivity
 import com.vigeo.avcm.myInfo.service.MyInfoService
 import com.vigeo.avcm.myInfo.viewModel.MyInfoVO
 import okhttp3.OkHttpClient
@@ -40,6 +42,17 @@ class MyInfoActivity : AppCompatActivity() {
         }
     }
 
+    /* retrofit DB 연결 */
+    val gson: Gson = GsonBuilder()
+        .setLenient()
+        .create()
+
+    val retrofit = Retrofit.Builder()
+        .baseUrl("http://192.168.0.193:8080/")
+        .client(OkHttpClient())
+        .addConverterFactory(GsonConverterFactory.create(gson))
+        .build()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(myInfoBinding.root)
@@ -47,20 +60,6 @@ class MyInfoActivity : AppCompatActivity() {
         //내부 저장소인 SharedPreferences 에 값을 저장하는 방법, 앱의 데이터를 삭제하기 전까지는 존재한다.
         //vigeo란 이름으로 Context.MODE_PRIVATE : 내부 앱에서만 사용가능한 방법으로 저장함
         val sharedPreference = getSharedPreferences("user", Context.MODE_PRIVATE)
-
-        //Editor (Key, Value)형식으로 저장하기 위함
-        //editor.putXXX 형식으로 형식에 맞춰서 넣어줘야함.
-        //반드시 commit을 해줘야함.
-        /*val editor: SharedPreferences.Editor = sharedPreference.edit()
-        editor.putString("userNo", "2")        //아이디
-        editor.putString("userId", "01012345678")        //아이디
-        editor.putString("userNm", "김농민")        //이름
-        editor.putString("zipCd", "13494")         //우편번호
-        editor.putString("addr", "경기 성남시 분당구 판교역로 235")          //주소
-        editor.putString("addrDetail", "에이치스퀘어 엔동")    //상세주소
-        editor.putString("phoneNum", "01012345678")      //전화번호
-        //editor.putString("fcmToken","하태훈")      //Fcm 토큰값
-        editor.commit()*/
 
         //여기서 null!!은 데이터가 test1가 비어있을때 리턴해줌.
         //vigeo - test1이 있을때는 위에 저장해준 test2가 나옴
@@ -79,6 +78,36 @@ class MyInfoActivity : AppCompatActivity() {
         myInfoBinding.myInfoAddr.setText(addr)
         myInfoBinding.myInfoAddrDetail.setText(addrDetail)
 
+        //뒤로가기
+        myInfoBinding.myInfoGoBack.setOnClickListener {
+            Log.d("Myinfo", "Faq로 이동")
+            finish()
+        }
+
+        //로그아웃
+        myInfoBinding.myInfoLogOut.setOnClickListener {
+            Log.d("Myinfo", "로그아웃")
+
+            //내부 저장소 데이터 삭제
+            val editor : SharedPreferences.Editor = sharedPreference.edit()
+            editor.remove("userNo")
+            editor.commit()
+            finishAffinity()
+
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
+
+        //중복확인 클릭시
+        myInfoBinding.myInfoIdCheck.setOnClickListener {
+            //아이디 변경 체크
+            if (userId != myInfoBinding.myInfoId.text.toString()) {
+                userIdCheck(context = this,myInfoBinding.myInfoId.text.toString())
+            }else{
+                return@setOnClickListener Toast.makeText(this,"사용가능한 아이디입니다.",Toast.LENGTH_SHORT).show()
+            }
+        }
+
         //우편번호 클릭시
         myInfoBinding.myInfoZipCd.setOnClickListener {
             daumAddrClick()
@@ -87,6 +116,11 @@ class MyInfoActivity : AppCompatActivity() {
         //주소 클릭시
         myInfoBinding.myInfoAddr.setOnClickListener {
             daumAddrClick()
+        }
+
+        //회원탈퇴 클릭시
+        myInfoBinding.myInfoUserDelete.setOnClickListener {
+            deleteDialog(userNo)
         }
 
         //확인 클릭시
@@ -110,19 +144,13 @@ class MyInfoActivity : AppCompatActivity() {
             //비밀번호 변경여부 체크 - 비밀번호 입력, 비밀번호 확인 미입력
             if (myInfoBinding.myInfoPw.text.isNotEmpty() && myInfoBinding.myInfoPwCheck.text.isEmpty()) {
                 Log.d("비밀번호 확인 : ", "비밀번호 입력, 비밀번호 확인 미입력")
-                return@setOnClickListener Toast.makeText(
-                    this,
-                    "비밀번호 확인을 입력해주세요.",
-                    Toast.LENGTH_SHORT
-                ).show()
-
+                return@setOnClickListener Toast.makeText(this,"비밀번호 확인을 입력해주세요.",Toast.LENGTH_SHORT).show()
             }
 
             //비밀번호 변경여부 체크 - 비밀번호 미입력, 비밀번호 확인 입력
             if (myInfoBinding.myInfoPw.text.isEmpty() && myInfoBinding.myInfoPwCheck.text.isNotEmpty()) {
                 Log.d("비밀번호 확인 : ", "비밀번호 미입력, 비밀번호 확인 입력")
-                return@setOnClickListener Toast.makeText(this, "비밀번호 입력해주세요.", Toast.LENGTH_SHORT)
-                    .show()
+                return@setOnClickListener Toast.makeText(this, "비밀번호 입력해주세요.", Toast.LENGTH_SHORT).show()
             }
 
             //비밀번호 변경여부 체크 - 둘다 입력
@@ -176,20 +204,45 @@ class MyInfoActivity : AppCompatActivity() {
                 finish()
             }
         }
-
-        //삭제하는법, 커밋해줘야함
-        //editor.remove("test1")
-        //editor.commit()
-
-        //초기화
-        //editor.clear()
-
     }
 
-    //웹앱 js와 브릿지 - 우편번호 등등
-    class AndroidBridge2(myInfoBinding: ActivityMyInfoBinding, alertDialog: AlertDialog) {
-        val myInfoBinding = myInfoBinding
-        val alertDialog = alertDialog
+    //아이디 중복확인 함수
+    fun userIdCheck(
+        context: Context,
+        updateUserId: String
+    ) {
+        retrofit.create(MyInfoService::class.java).isUserExist(
+            userId = updateUserId
+        ).enqueue(object :
+            Callback<MyInfoVO> {
+            override fun onResponse(call: Call<MyInfoVO>, response: Response<MyInfoVO>) {
+                if (response.isSuccessful) {
+                    // 정상적으로 통신이 성공된 경우
+                    var myinfoUserIdCheck = response.body()!!
+                    // true 일 경우는 중복된 아이디가 있음, false 일때는 중복된 아이디가 없음.
+                    if(myinfoUserIdCheck.userChack == "true"){
+                        Log.d("myinfo UserIdCheck : ", "myinfo UserIdCheck 성공: " + myinfoUserIdCheck.toString())
+                        return Toast.makeText(context,"중복된 아이디가 있습니다. 아이디를 다시확인해 주십시요.",Toast.LENGTH_LONG).show()
+                    }else{
+                        Log.d("myinfo UserIdCheck : ", "myinfo UserIdCheck 실패: " + myinfoUserIdCheck.toString())
+                        return Toast.makeText(context,"중복된 아이디가 없습니다. 사용가능합니다.",Toast.LENGTH_LONG).show()
+                    }
+                } else {
+                    errorDialog("문제가 발생하였습니다. \n 다시 시도 또는 관리자에게 문의하세요")
+                    // 통신이 실패한 경우(응답코드 3xx, 4xx 등)
+                    Log.d("myinfo UserIdCheck : ", "myinfo UserIdCheck 실패")
+                }
+            }
+
+            override fun onFailure(call: Call<MyInfoVO>, t: Throwable) {
+                Log.d("myinfo UserIdCheck : ", "myinfo UserIdCheck 실패")
+                errorDialog("문제가 발생하였습니다. \n 다시 시도 또는 관리자에게 문의하세요")
+            }
+        })
+    }
+
+    //웹앱 js와 브릿지 - 우편번호, 주소 등등
+    class AndroidBridge(val myInfoBinding: ActivityMyInfoBinding,val alertDialog: AlertDialog) {
 
         @JavascriptInterface
         fun sendAddr(
@@ -204,6 +257,40 @@ class MyInfoActivity : AppCompatActivity() {
         }
     }
 
+    //유저 삭제 함수
+    fun userDelete(
+        updateUserNo: String
+    ) {
+        retrofit.create(MyInfoService::class.java).isUserDelect(
+            userNo = updateUserNo
+        ).enqueue(object :
+            Callback<MyInfoVO> {
+            override fun onResponse(call: Call<MyInfoVO>, response: Response<MyInfoVO>) {
+                if (response.isSuccessful) {
+                    // 정상적으로 통신이 성공된 경우
+                    var myinfoUserIdCheck = response.body()!!
+                    // true 일 경우는 중복된 아이디가 있음, false 일때는 중복된 아이디가 없음.
+                    if(myinfoUserIdCheck.message == "true"){
+                        Log.d("myinfo userDelete : ", "myinfo userDelete 성공: " + myinfoUserIdCheck.toString())
+                        successDialog("회원탈퇴 되었습니다. \n 로그인 화면으로 돌아갑니다.", "확인", "userDelete")
+                    }else{
+                        Log.d("myinfo userDelete : ", "myinfo userDelete 실패: " + myinfoUserIdCheck.toString())
+                        errorDialog("문제가 발생하였습니다. \n 다시 시도 또는 관리자에게 문의하세요")
+                    }
+                } else {
+                    Log.d("myinfo userDelete : ", "myinfo userDelete 실패")
+                    errorDialog("문제가 발생하였습니다. \n 다시 시도 또는 관리자에게 문의하세요")
+                }
+            }
+
+            override fun onFailure(call: Call<MyInfoVO>, t: Throwable) {
+                Log.d("myinfo userDelete : ", "myinfo userDelete 실패")
+                errorDialog("문제가 발생하였습니다. \n 다시 시도 또는 관리자에게 문의하세요")
+            }
+        })
+    }
+
+    //유저 업데이트 함수
     fun userUpdate(
         sharedPreference : SharedPreferences,
         updateUserNo: String,
@@ -214,17 +301,6 @@ class MyInfoActivity : AppCompatActivity() {
         updateAddr: String,
         updateAddrDetail: String,
     ) {
-
-        /* retrofit DB 연결 */
-        val gson: Gson = GsonBuilder()
-            .setLenient()
-            .create()
-
-        val retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.0.193:8080/")
-            .client(OkHttpClient())
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .build()
 
         retrofit.create(MyInfoService::class.java).isUserUpdate(
             userNo = updateUserNo,
@@ -264,7 +340,7 @@ class MyInfoActivity : AppCompatActivity() {
                         editor.commit()
 
                         Log.d("myinfo UserUpdate : ", "myinfo UserUpdate 성공: " + myinfoUserUpdate.toString())
-                        successDialog("정보가 수정되었습니다. \n 이전 화면으로 돌아갑니다.", "확인")
+                        successDialog("정보가 수정되었습니다. \n 이전 화면으로 돌아갑니다.", "확인", "userUpdate")
 
                     }else{
                         Log.d("myinfo UserUpdate : ", "myinfo UserUpdate 실패: " + myinfoUserUpdate.toString());
@@ -289,6 +365,7 @@ class MyInfoActivity : AppCompatActivity() {
 
         val errorDialogView : View = layoutInflater.inflate(R.layout.pop_error, null)
         val errorAlertDialog : AlertDialog = AlertDialog.Builder(this)
+            .setCancelable(false)
             .setView(errorDialogView)
             .create()
 
@@ -306,10 +383,11 @@ class MyInfoActivity : AppCompatActivity() {
     }
 
     //성공 시 팝업
-    fun successDialog(context: String, button:String){
+    fun successDialog(context: String, button:String, type:String){
 
         val successDialogView : View = layoutInflater.inflate(R.layout.pop_format_pw_ok, null)
         val successAlertDialog : AlertDialog = AlertDialog.Builder(this)
+            .setCancelable(false)
             .setView(successDialogView)
             .create()
 
@@ -323,9 +401,52 @@ class MyInfoActivity : AppCompatActivity() {
         successAlertDialog.show()
 
         successBinding.btnPwFormatOk.setOnClickListener {
-            successAlertDialog.dismiss()
-            finish()
+            if(type == "userDelete"){
+                successAlertDialog.dismiss()
+
+                //내부 저장소 데이터 삭제
+                val sharedPreference = getSharedPreferences("user", Context.MODE_PRIVATE)
+                val editor : SharedPreferences.Editor = sharedPreference.edit()
+                editor.remove("userNo")
+                editor.commit()
+                finishAffinity()
+
+                //로그인화면 실행
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+
+            }else{
+                successAlertDialog.dismiss()
+                finish()
+            }
         }
+    }
+
+    //회원탈퇴 팝업
+    fun deleteDialog(userNo : String){
+
+        val deleteDialogView : View = layoutInflater.inflate(R.layout.pop_user_delete, null)
+        val deleteAlertDialog : AlertDialog = AlertDialog.Builder(this)
+            .setCancelable(false)
+            .setView(deleteDialogView)
+            .create()
+
+        val deleteBinding: PopUserDeleteBinding by lazy {
+            PopUserDeleteBinding.bind(deleteDialogView)
+        }
+
+        deleteAlertDialog.show()
+
+        //아니요버튼
+        deleteBinding.btnNo.setOnClickListener {
+            deleteAlertDialog.dismiss()
+        }
+        
+        //네 버튼
+        deleteBinding.btnOk.setOnClickListener {
+            userDelete(userNo)
+        }
+
     }
 
     //우편번호, 주소 클릭시 연결 함수
@@ -345,7 +466,7 @@ class MyInfoActivity : AppCompatActivity() {
             WebView.setWebContentsDebuggingEnabled(true)
             settings.javaScriptEnabled = true
             isFocusableInTouchMode = true
-            addJavascriptInterface(AndroidBridge2(myInfoBinding, alertDialog), "avcmApp")
+            addJavascriptInterface(AndroidBridge(myInfoBinding, alertDialog), "avcmApp")
             //settings.setSupportMultipleWindows(true)
             //settings.domStorageEnabled = true
             loadUrl("http://192.168.0.193:8080/appApi/loginApp/daumAddr.do")
