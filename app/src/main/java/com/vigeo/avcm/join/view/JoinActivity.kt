@@ -1,13 +1,17 @@
 package com.vigeo.avcm.join.view
 
+import android.annotation.TargetApi
+import android.content.Context
 import android.content.Intent
+import android.net.http.SslError
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
+import android.webkit.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.vigeo.avcm.R
@@ -17,6 +21,7 @@ import com.vigeo.avcm.databinding.PopJoinOkBinding
 import com.vigeo.avcm.join.model.JoinVO
 import com.vigeo.avcm.join.service.JoinService
 import com.vigeo.avcm.login.view.LoginActivity
+import com.vigeo.avcm.myInfo.view.MyWebView
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Callback
@@ -30,6 +35,12 @@ class JoinActivity : AppCompatActivity() {
         ActivityJoinBinding.inflate(layoutInflater)
     }
 
+    var client: WebViewClient = object : WebViewClient() {
+        @TargetApi(Build.VERSION_CODES.N)
+        override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {
+            return false
+        }
+    }
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +48,12 @@ class JoinActivity : AppCompatActivity() {
 
         //우편번호 선택 시 다음 우편 API 팝업 호출
         joinBinding.etJoinPostNum.setOnClickListener{
+            daumAddrClick()
+        }
+
+        //주소 선택 시 다음 우편 API 팝업 호출
+        joinBinding.etJoinAddr.setOnClickListener{
+            daumAddrClick()
         }
 
         //다음 버튼 눌렀을 때
@@ -122,6 +139,7 @@ class JoinActivity : AppCompatActivity() {
         val errorDialogView : View = layoutInflater.inflate(R.layout.pop_error, null)
         val errorAlertDialog : AlertDialog = AlertDialog.Builder(this)
             .setView(errorDialogView)
+            .setCancelable(false)
             .create()
 
         val errorBinding: PopErrorBinding by lazy {
@@ -145,6 +163,7 @@ class JoinActivity : AppCompatActivity() {
         val joinOkDialogView : View = layoutInflater.inflate(R.layout.pop_join_ok, null)
         val joinOkAlertDialog : AlertDialog = AlertDialog.Builder(this)
             .setView(joinOkDialogView)
+            .setCancelable(false)
             .create()
         joinOkAlertDialog.show()
 
@@ -176,12 +195,6 @@ class JoinActivity : AppCompatActivity() {
 
     private fun userInsert(retrofit: Retrofit) {
 
-        var fcmToken : String? = null
-        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
-            if(task.isSuccessful){
-                fcmToken = task.result
-            }
-        }
         val userId = joinBinding.etJoinPhoneNum.text.toString()
         val userPw = joinBinding.etJoinPhoneNum.text.toString()
         val zipCd = joinBinding.etJoinPostNum.text.toString()
@@ -197,8 +210,7 @@ class JoinActivity : AppCompatActivity() {
             zipCd = zipCd,
             addr = addr,
             addrDetail = addrDetail,
-            userNm = userNm,
-            fcmToken = fcmToken
+            userNm = userNm
         ).enqueue(object :
             Callback<JoinVO> {
             override fun onResponse(call: Call<JoinVO>, response: Response<JoinVO>) {
@@ -284,4 +296,81 @@ class JoinActivity : AppCompatActivity() {
         return retrofit
     }
 
+
+    //우편번호, 주소 클릭시 연결 함수
+    fun daumAddrClick() {
+        var daumWebView: WebView = MyWebView(this)
+        daumWebView.isFocusable = true
+        daumWebView.isFocusableInTouchMode = true
+        Log.d("우편번호 누름", "우편번호 눌렀음.")
+
+        Log.d("웹뷰 실행", "웹뷰실행")
+        val alertDialog: AlertDialog = AlertDialog.Builder(this)
+            .setView(daumWebView)
+            //.setCancelable(false)
+            .create()
+
+        //daumWebView = webDaumAddrBinding.daumWebView
+        daumWebView.apply {
+            WebView.setWebContentsDebuggingEnabled(true)
+            settings.javaScriptEnabled = true
+            isFocusableInTouchMode = true
+            addJavascriptInterface(JoinActivity.AndroidBridge(joinBinding, alertDialog), "avcmApp")
+            //settings.setSupportMultipleWindows(true)
+            //settings.domStorageEnabled = true
+            loadUrl("http://192.168.0.193:8080/appApi/loginApp/daumAddr.do")
+            //loadUrl("http://snur.vigeotech.com/com/login/login.do")
+            webViewClient = client
+            webChromeClient = WebChromeClient()
+
+        }
+
+        daumWebView.webViewClient = object : WebViewClient() {
+            override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+                view.loadUrl(url)
+                return true
+            }
+
+            override fun onReceivedSslError(
+                view: WebView?,
+                handler: SslErrorHandler?,
+                error: SslError?
+            ) {
+                if (handler != null) {
+                    handler.proceed()
+                };
+            }
+
+            override fun onPageFinished(view: WebView, url: String?) {
+                view.loadUrl("javascript:daumPostcode();")
+            }
+        }
+
+        alertDialog.show()
+        Log.d("웹뷰 실행 끝", "웹뷰 실행 끝")
+    }
+
+    //웹앱 js와 브릿지 - 우편번호 등등
+    class AndroidBridge(val joinBinding: ActivityJoinBinding, val alertDialog: AlertDialog) {
+
+        @JavascriptInterface
+        fun sendAddr(
+            zonecode: String = "null",
+            address: String = "null",
+            buildingName: String = "null"
+        ) {
+            joinBinding.etJoinPostNum.setText(zonecode)
+            joinBinding.etJoinAddr.setText(address)
+            joinBinding.etJoinDaddr.setText(buildingName)
+            alertDialog.dismiss()
+        }
+    }
+
+}
+
+//WebView에서 inputText 클릭시 입력 키보드 안뜨는 문제를 해결하기위해 onCheckIsTextEditor을 재정의 하기 위함.
+internal class MyWebView(context: Context?) : WebView(context!!) {
+    override fun onCheckIsTextEditor(): Boolean {
+        return true
+    }
 }

@@ -232,7 +232,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 -->
-            <EditText
+            <TextView
                 android:id="@+id/et_join_post_num"
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
@@ -241,6 +241,7 @@
                 android:layout_marginBottom="15dp"
                 android:background="@drawable/round_edit_text"
                 android:ems="10"
+                android:focusable="false"
                 android:gravity="center|left"
                 android:hint="우편번호"
                 android:inputType="number"
@@ -295,7 +296,7 @@
 <!--                app:layout_constraintBottom_toBottomOf="parent"-->
 <!--                app:layout_constraintEnd_toEndOf="parent"-->
 <!--                app:layout_constraintStart_toStartOf="parent" />-->
-            <EditText
+            <TextView
                 android:id="@+id/et_join_addr"
                 android:layout_width="match_parent"
                 android:layout_height="65dp"
@@ -305,6 +306,7 @@
                 android:background="@drawable/round_edit_text"
                 android:ems="10"
                 android:gravity="center|left"
+                android:focusable="false"
                 android:hint="주소"
                 android:inputType="text"
                 android:paddingLeft="100dp"

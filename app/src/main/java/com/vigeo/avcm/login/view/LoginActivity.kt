@@ -100,6 +100,7 @@ class LoginActivity  : AppCompatActivity() {
             val dialogView : View = layoutInflater.inflate(R.layout.pop_format_pw, null)
             val alertDialog : AlertDialog = AlertDialog.Builder(this)
                 .setView(dialogView)
+                .setCancelable(false)
                 .create()
 
             //다이얼로그로 뷰바인딩
@@ -182,6 +183,7 @@ class LoginActivity  : AppCompatActivity() {
         val formatOkDialogView : View = layoutInflater.inflate(R.layout.pop_format_buy_ok, null)
         val formatOkAlertDialog : AlertDialog = AlertDialog.Builder(this)
             .setView(formatOkDialogView)
+            .setCancelable(false)
             .create()
         formatOkAlertDialog.show()
 
@@ -209,6 +211,7 @@ class LoginActivity  : AppCompatActivity() {
         val formatNoDialogView : View = layoutInflater.inflate(R.layout.pop_format_buy_no, null)
         val formatNoAlertDialog : AlertDialog = AlertDialog.Builder(this)
             .setView(formatNoDialogView)
+            .setCancelable(false)
             .create()
         formatNoAlertDialog.show()
 
@@ -231,6 +234,7 @@ class LoginActivity  : AppCompatActivity() {
         val errorDialogView : View = layoutInflater.inflate(R.layout.pop_error, null)
         val errorAlertDialog : AlertDialog = AlertDialog.Builder(this)
             .setView(errorDialogView)
+            .setCancelable(false)
             .create()
 
         val errorBinding: PopErrorBinding by lazy {
