@@ -15,7 +15,6 @@ import com.google.android.gms.location.*
 import com.google.android.gms.maps.*
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.firebase.crashlytics.buildtools.reloc.org.apache.commons.codec.language.bm.Lang
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.vigeo.avcm.R

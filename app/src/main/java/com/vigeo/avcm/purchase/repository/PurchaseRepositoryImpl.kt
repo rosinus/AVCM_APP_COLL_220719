@@ -1,9 +1,8 @@
 package com.vigeo.avcm.purchase.repository
 
 import com.vigeo.avcm.purchase.data.model.PurchaseList
-import com.vigeo.avcm.purchase.data.model.retrofit.RetrofitInstance.api
+import com.vigeo.avcm.purchase.data.model.Service.RetrofitInstance.api
 import retrofit2.Response
-import retrofit2.http.Query
 
 class PurchaseRepositoryImpl : PurchaseRepository {
     override suspend fun purchaseList(

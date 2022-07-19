@@ -19,7 +19,6 @@ class PurchaseViewModel(
     private val _resultDetail = MutableLiveData<PurchaseList>()
     val resultDetail : LiveData<PurchaseList> get() = _resultDetail
 
-
     fun purchaseLists(    prodGb:String,
                           prodNm:String,
                           firstIndex:Int,

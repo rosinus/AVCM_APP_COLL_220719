@@ -63,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="15dp"
-            android:text="  폭"
+            android:text="폭"
             android:textColor="@color/black"
             android:textSize="18dp"
             app:layout_constraintStart_toEndOf="@+id/textView24"
@@ -146,13 +146,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="8dp"
             android:text="규격"
             android:textColor="@color/black"
             android:textSize="18dp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView19" />
+            app:layout_constraintTop_toBottomOf="@+id/prodCnt" />
 
         <TextView
             android:id="@+id/tv_content"
@@ -256,7 +256,7 @@
             app:layout_constraintTop_toBottomOf="@+id/prodNm2" />
 
         <TextView
-            android:id="@+id/textView19"
+            android:id="@+id/prodCnt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
@@ -277,7 +277,7 @@
             android:text="10"
             android:textColor="@color/black"
             android:textSize="18dp"
-            app:layout_constraintStart_toEndOf="@+id/textView19"
+            app:layout_constraintStart_toEndOf="@+id/prodCnt"
             app:layout_constraintTop_toBottomOf="@+id/prodPirce3" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

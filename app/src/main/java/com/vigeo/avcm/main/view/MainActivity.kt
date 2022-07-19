@@ -43,6 +43,12 @@ class MainActivity : AppCompatActivity() {
             permissions.getOrDefault(Manifest.permission.ACCESS_FINE_LOCATION, false) -> {
                 // Precise location access granted.
             }
+            permissions.getOrDefault(Manifest.permission.READ_PHONE_NUMBERS, false) -> {
+
+            }
+            permissions.getOrDefault(Manifest.permission.READ_PHONE_STATE, false) -> {
+
+            }
             permissions.getOrDefault(Manifest.permission.ACCESS_COARSE_LOCATION, false) -> {
                 // Only approximate location access granted.
             } else -> {

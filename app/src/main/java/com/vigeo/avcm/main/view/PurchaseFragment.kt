@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.vigeo.avcm.R
 import com.vigeo.avcm.databinding.FragmentPurchaseBinding
 import com.vigeo.avcm.purchase.adapter.PurchaseAdapter
+import com.vigeo.avcm.purchase.view.CollectActivity
 import com.vigeo.avcm.purchase.view.PurchaseActivity
 import com.vigeo.avcm.purchase.viewmodel.PurchaseViewModel
 
@@ -98,6 +99,8 @@ class PurchaseFragment : Fragment() {
                     prodGb = "03"
                     purchaseLists()
                     Log.d(TAG, "mulching - 멀칭 필름 클릭")
+                    val intent = Intent(activity, CollectActivity::class.java)
+                    startActivity(intent)
                     true
                 }
                 else -> false

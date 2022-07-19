@@ -8,30 +8,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.vigeo.avcm.R
-import com.vigeo.avcm.databinding.FragmentPurchaseBinding
+import com.vigeo.avcm.databinding.FragmentPurchaseMainBinding
 import com.vigeo.avcm.databinding.FragmentPurchaseOkBinding
+import com.vigeo.avcm.databinding.ItemPurchaseDetailBinding
 
 class PurchaseOkFragment : Fragment() {
-    private var _binding : FragmentPurchaseOkBinding? = null
-    private val binding : FragmentPurchaseOkBinding get() = _binding!!
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+    private var _okBinding : FragmentPurchaseOkBinding? = null
+    private val okBinding : FragmentPurchaseOkBinding get() = _okBinding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-       _binding = FragmentPurchaseOkBinding.inflate(inflater, container, false)
+       _okBinding = FragmentPurchaseOkBinding.inflate(inflater, container, false)
 
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
+        return okBinding.root
     }
 
 }

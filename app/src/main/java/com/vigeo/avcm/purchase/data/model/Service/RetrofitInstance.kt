@@ -1,5 +1,4 @@
-package com.vigeo.avcm.purchase.data.model.retrofit
-import android.util.Log
+package com.vigeo.avcm.purchase.data.model.Service
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -24,5 +23,9 @@ object RetrofitInstance {
 
     val api: PurchaseService by lazy {
         retrofit.create(PurchaseService::class.java)
+    }
+
+    val collectApi: CollectService by lazy {
+        retrofit.create(CollectService::class.java)
     }
 }

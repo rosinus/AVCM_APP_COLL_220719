@@ -1,4 +1,4 @@
-package com.vigeo.avcm.purchase.data.model.retrofit
+package com.vigeo.avcm.purchase.data.model.Service
 
 import com.vigeo.avcm.purchase.data.model.PurchaseList
 import retrofit2.Response

@@ -179,7 +179,7 @@ class LoginActivity  : AppCompatActivity() {
     //비밀번호 초기화 완료 팝업
     fun formatOkDialog(tv : Editable?){
         //비밀번호 초기화 완료 팝업을 현재 레이아웃 위에 다이얼로그로 생성
-        val formatOkDialogView : View = layoutInflater.inflate(R.layout.pop_format_pw_ok, null)
+        val formatOkDialogView : View = layoutInflater.inflate(R.layout.pop_format_buy_ok, null)
         val formatOkAlertDialog : AlertDialog = AlertDialog.Builder(this)
             .setView(formatOkDialogView)
             .create()
@@ -206,7 +206,7 @@ class LoginActivity  : AppCompatActivity() {
     fun formatNoDialog(){
 
         //계정 정보 없음 팝업을 현재 레이아웃 위에 다이얼로그로 생성
-        val formatNoDialogView : View = layoutInflater.inflate(R.layout.pop_format_pw_no, null)
+        val formatNoDialogView : View = layoutInflater.inflate(R.layout.pop_format_buy_no, null)
         val formatNoAlertDialog : AlertDialog = AlertDialog.Builder(this)
             .setView(formatNoDialogView)
             .create()

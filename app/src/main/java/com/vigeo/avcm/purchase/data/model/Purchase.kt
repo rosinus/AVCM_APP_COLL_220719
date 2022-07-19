@@ -45,5 +45,9 @@ data class Purchase(
     @field:Json(name = "useDateTo")
     var useDateTo: String?,
     @field:Json(name = "userNm")
-    var userNm: String?
+    var userNm: String?,
+    @field:Json(name = "sellCnt")
+    var sellCnt: Int?,
+    @field:Json(name = "prodCnt")
+    var prodCnt: Int?
 )
