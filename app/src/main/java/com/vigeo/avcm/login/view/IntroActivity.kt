@@ -40,14 +40,27 @@ class IntroActivity : AppCompatActivity() {
 
         }else{ //저장된 정보가 없을 시 인트로 노출
 
-            // 1) ViewPager2 참조
-            val viewPager: ViewPager2 = introBinding.ivIntroViewPager
+            val isIntro = pref.getBoolean("isIntro", false)
 
-            // 2) FragmentStateAdapter 생성 : Fragment 여러개를 ViewPager2에 연결해주는 역할
-            val intropagerFragmentAdapter = IntropagerFragmentAdapter(this)
+            if(isIntro){ //사용자 정보는 없으나 인트로 이력 있을 경우
 
-            // 3) ViewPager2의 adapter에 설정
-            viewPager.adapter = intropagerFragmentAdapter
+                //로그인 화면 이동
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
+
+
+            }else { //모두 없을 경우
+
+                // 1) ViewPager2 참조
+                val viewPager: ViewPager2 = introBinding.ivIntroViewPager
+
+                // 2) FragmentStateAdapter 생성 : Fragment 여러개를 ViewPager2에 연결해주는 역할
+                val intropagerFragmentAdapter = IntropagerFragmentAdapter(this)
+
+                // 3) ViewPager2의 adapter에 설정
+                viewPager.adapter = intropagerFragmentAdapter
+            }
         }
     }
 
